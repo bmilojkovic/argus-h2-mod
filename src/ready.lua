@@ -22,6 +22,6 @@ game.OnControlPressed({'Gift', function()
 	return trigger_Gift()
 end})
 
-modutil.mod.Path.override("CalcEasyModeMultiplier", function(level)
-	return 2
+modutil.mod.Path.Override("CalcEasyModeMultiplier", function(level)
+	rom.log.warning("Changing Easy mode multiplier")
 end)
