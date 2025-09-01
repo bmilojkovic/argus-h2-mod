@@ -3,7 +3,7 @@ schemaVersion = "0.0.1"
 
 
 [package]
-namespace = "crazy__penguin"
+namespace = "CrazyPenguin"
 name = "Argus"
 versionNumber = "0.0.1"
 description = "Support for the Argus twitch extension. Let your viewers see which boons you collected during your run."

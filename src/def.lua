@@ -1,4 +1,4 @@
----@meta AuthorName-ModName
+---@meta CrazyPenguin-Argus
 local public = {}
 
 -- document whatever you made publicly available to other plugins here
