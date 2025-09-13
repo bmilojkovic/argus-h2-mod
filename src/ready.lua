@@ -19,7 +19,7 @@ modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
 	traitList = ""
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
-			traitList = traitList .. currentTrait.Name .. " "
+			traitList = traitList .. currentTrait.Name .. "-" .. currentTrait.Rarity .. " "
 		end
 	end
 	rom.log.warning("Trait list: " .. traitList)
