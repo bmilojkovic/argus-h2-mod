@@ -9,6 +9,7 @@ extension_id = "sl19e3aebmadlewzt7mxfv3j3llwwv"
 api_client_secret = "jaj66oy02as7x9kplcotsxje7lounb"
 
 async def twitch_example(boon_list):
+    sys.stdout.write("Boon list: " + str(boon_list))
     # initialize the twitch instance, this will by default also create a app authentication for you
     twitch = await Twitch(extension_id, api_client_secret)
 
@@ -19,7 +20,7 @@ async def twitch_example(boon_list):
     # figure out the logged in user (broadcaster)
     logged_in_user = await first(twitch.get_users())
     response = requests.post("http://localhost:3000/run_info", json = {"user": logged_in_user.id, "boonList": boon_list.strip()})
-    print(response)
+    sys.stdout.write("Response: " + str(response))
     
 if (len(sys.argv) > 1):
     if sys.argv[1] == "test1":

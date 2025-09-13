@@ -6,15 +6,23 @@
 -- 	so only assign to values or define things here.
 
 
-function send_twitch_data(game_data)
+function send_twitch_data()
+	rom.log.warning("Got new trait! Count is " .. game.GetTotalTraitCount(game.CurrentRun.Hero))
+	traitList = ""
+	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
+        if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
+			traitList = traitList .. currentTrait.Rarity .. "-" .. currentTrait.Name .. " "
+		end
+	end
+	rom.log.warning("Trait list: " .. traitList)
+
 	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
-		.. " > " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt")) -- redirect stdout of python to a file
+		.. " > " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1")) -- redirect stdout of python to a file
 
     local py_handle, open_err = io.popen(comm, "w")
 	
 	if py_handle ~= nil then
-		rom.log.warning("python open")
-		local write_succ, errmsg = py_handle:write(game_data .. "\n")
+		local write_succ, errmsg = py_handle:write(traitList .. "\n")
 		if not write_succ then
 			rom.log.warning(errmsg)
 		end
