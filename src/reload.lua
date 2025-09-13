@@ -7,7 +7,7 @@
 
 
 function send_twitch_data(game_data)
-	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'simple_print.py') -- run print script
+	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
 		.. " > " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt")) -- redirect stdout of python to a file
 
     local py_handle, open_err = io.popen(comm, "w")
