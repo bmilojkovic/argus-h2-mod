@@ -7,10 +7,21 @@
 -- 	so you will most likely want to have it reference
 --	values and functions later defined in `reload.lua`.
 
-local file = rom.path.combine(rom.paths.Content, 'Game/Text/en/ShellText.en.sjson')
+function stringify_table(someTable)
+	if type(someTable) == 'table' then
+      local s = '{ '
+      for k,v in pairs(someTable) do
+         k = '"'..k..'"'
+         s = s .. k .. ' : ' .. stringify_table(v) .. ','
+      end
+      return s .. '} '
+   else
+      return "\"" .. tostring(someTable) .. "\""
+   end
+end
 
 game.OnControlPressed({'Gift', function()
-	return trigger_Gift()
+	return trigger_gift()
 end})
 
 modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
