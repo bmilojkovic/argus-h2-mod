@@ -9,11 +9,16 @@ local NOBOONS = "NOBOONS"
 local NOPINS = "NOPINS"
 local NOWEAPONS = "NOWEAPONS"
 local NOFAMILIARS = "NOFAMILIARS"
+local NOKEEPSAKES = "NOKEEPSAKES"
 local NOELEMENTS = "NOELEMENTS"
 local dataSeparator = ";;"
 
-function isWeaponTrait(traitName)
-	return string.find(traitName, "Aspect") or string.find(traitName, "DummyWeapon")
+function isWeaponTrait(trait)
+	return trait.Slot ~= nil and trait.Slot == "Aspect"
+end
+
+function isKeepsakeTrait(trait)
+	return trait.Slot ~= nil and trait.Slot == "Keepsake"
 end
 
 function build_pin_data()
@@ -57,15 +62,24 @@ end
 function send_twitch_data()
 	pinsString = nil
 	weaponString = nil
+	keepsakeString = nil
 	boonList = nil
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
-		if isWeaponTrait(currentTrait.Name) and weaponString == nil then
+		if isWeaponTrait(currentTrait) and weaponString == nil then
 			if currentTrait.Rarity == nil then
 				rarity = "Common"
 			else
 				rarity = currentTrait.Rarity
 			end
 			weaponString = rarity .. dataSeparator .. currentTrait.Name
+		end
+		if isKeepsakeTrait(currentTrait) and keepsakeString == nil then
+			if currentTrait.Rarity == nil then
+				rarity = "Common"
+			else
+				rarity = currentTrait.Rarity
+			end
+			keepsakeString = rarity .. dataSeparator .. currentTrait.Name
 		end
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
 			if boonList == nil then boonList = "" end
@@ -85,6 +99,9 @@ function send_twitch_data()
 	end
 	if familiarString ~= nil then
 		rom.log.warning("Familiar: " .. familiarString)
+	end
+	if keepsakeString ~= nil then
+		rom.log.warning("Keepsake: " .. keepsakeString)
 	end
 	if elementsString ~= nil then
 		rom.log.warning("Elements: " .. elementsString)
@@ -110,6 +127,10 @@ function send_twitch_data()
 		if not writeSucc then
 			rom.log.warning(errmsg)
 		end
+		writeSucc, errmsg = pyHandle:write((keepsakeString or NOKEEPSAKES) .. "\n")
+		if not writeSucc then
+			rom.log.warning(errmsg)
+		end
 		writeSucc, errmsg = pyHandle:write((elementString or NOELEMENTS) .. "\n")
 		if not writeSucc then
 			rom.log.warning(errmsg)
@@ -125,6 +146,6 @@ function send_twitch_data()
 end
 
 function trigger_gift()
-	rom.log.warning(stringify_table(game.GameState.StoreItemPins))
+	rom.log.warning(stringify_table(game.CurrentRun.Hero.Traits))
 	modutil.mod.Hades.PrintOverhead(config.message)
 end
