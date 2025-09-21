@@ -71,7 +71,7 @@ def read_data_from_stdin():
 
 if (len(sys.argv) > 1):
     if sys.argv[1] == "test1":
-        boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon ZeusWhateverBoon"
+        boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon"
         weapon_data = "Rare;;DaggerBlockAspect"
         familiar_data = "CatFamiliar"
         keepsake_data = "Epic;;ForceZeusBoonKeepsake"

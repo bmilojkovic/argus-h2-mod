@@ -17,6 +17,10 @@ function isWeaponTrait(trait)
 	return trait.Slot ~= nil and trait.Slot == "Aspect"
 end
 
+function isHammerTrait(trait)
+	return trait.IsHammerTrait ~= nil and trait.IsHammerTrait
+end
+
 function isKeepsakeTrait(trait)
 	return trait.Slot ~= nil and trait.Slot == "Keepsake"
 end
@@ -59,11 +63,21 @@ function build_elemental_data()
 	return elementString
 end
 
+function write_to_python_process(pyHandle, mainString, failString)
+	pyHandle:write((mainString or failString) .. "\n")
+	--[[
+	local writeSucc, errmsg = pyHandle:write((mainString or failString) .. "\n")
+	if not writeSucc then
+		rom.log.warning(errmsg)
+	end
+	]]
+end
+
 function send_twitch_data()
 	pinsString = nil
 	weaponString = nil
 	keepsakeString = nil
-	boonList = nil
+	boonList = ""
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
 		if isWeaponTrait(currentTrait) and weaponString == nil then
 			if currentTrait.Rarity == nil then
@@ -81,11 +95,15 @@ function send_twitch_data()
 			end
 			keepsakeString = rarity .. dataSeparator .. currentTrait.Name
 		end
+		if isHammerTrait(currentTrait) then
+			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
+		end
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
-			if boonList == nil then boonList = "" end
 			boonList = boonList .. currentTrait.Rarity .. dataSeparator .. currentTrait.Name .. " "
 		end
 	end
+	if boonList == "" then boonList = nil end
+	
 	elementsString = build_elemental_data()
 	if game.GameState.EquippedFamiliar ~= nil then
 		familiarString = game.GameState.EquippedFamiliar
@@ -115,30 +133,13 @@ function send_twitch_data()
     local pyHandle, openErr = io.popen(comm, "w")
 	
 	if pyHandle ~= nil then
-		local writeSucc, errmsg = pyHandle:write((boonList or NOBOONS) .. "\n")
-		if not writeSucc then
-			rom.log.warning(errmsg)
-		end
-		writeSucc, errmsg = pyHandle:write((weaponString or NOWEAPONS) .. "\n")
-		if not writeSucc then
-			rom.log.warning(errmsg)
-		end
-		writeSucc, errmsg = pyHandle:write((familiarString or NOFAMILIARS) .. "\n")
-		if not writeSucc then
-			rom.log.warning(errmsg)
-		end
-		writeSucc, errmsg = pyHandle:write((keepsakeString or NOKEEPSAKES) .. "\n")
-		if not writeSucc then
-			rom.log.warning(errmsg)
-		end
-		writeSucc, errmsg = pyHandle:write((elementString or NOELEMENTS) .. "\n")
-		if not writeSucc then
-			rom.log.warning(errmsg)
-		end
-		writeSucc, errmsg = pyHandle:write((pinsString or NOPINS) .. "\n")
-		if not writeSucc then
-			rom.log.warning(errmsg)
-		end
+		write_to_python_process(pyHandle, boonList, NOBOONS)
+		write_to_python_process(pyHandle, weaponString, NOWEAPONS)
+		write_to_python_process(pyHandle, familiarString, NOFAMILIARS)
+		write_to_python_process(pyHandle, keepsakeString, NOKEEPSAKES)
+		write_to_python_process(pyHandle, elementString, NOELEMENTS)
+		write_to_python_process(pyHandle, pinsString, NOPINS)
+		
 		pyHandle:flush()
 	else
 		rom.log.warning("Error in starting python script: " .. openErr)

@@ -5,3 +5,4 @@
 * Have the backend check mod version and decide weather it should forward the data to extension or not (in case of patch)
 * Add evil eye detail (who killed you)
 * Add blackened fleece detail (current total damage)
+* Add hammer ranks

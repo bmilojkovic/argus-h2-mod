@@ -26,6 +26,7 @@ end})
 
 modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
 	newTrait = base(...)
-	send_twitch_data()
+   game.thread(send_twitch_data)
+   --send_twitch_data()
 	return newTrait
 end)
