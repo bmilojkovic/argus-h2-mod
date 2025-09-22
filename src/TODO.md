@@ -6,3 +6,4 @@
 * Add evil eye detail (who killed you)
 * Add blackened fleece detail (current total damage)
 * Add hammer ranks
+* Add timeout for pending argus token requests (also consider if other such timeouts are needed)

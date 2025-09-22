@@ -9,7 +9,7 @@ local NOBOONS = "NOBOONS"
 local NOPINS = "NOPINS"
 local NOWEAPONS = "NOWEAPONS"
 local NOFAMILIARS = "NOFAMILIARS"
-local NOKEEPSAKES = "NOKEEPSAKES"
+local NOEXTRAS = "NOEXTRAS"
 local NOELEMENTS = "NOELEMENTS"
 local dataSeparator = ";;"
 
@@ -23,6 +23,10 @@ end
 
 function isKeepsakeTrait(trait)
 	return trait.Slot ~= nil and trait.Slot == "Keepsake"
+end
+
+function isHexTrait(trait)
+	return trait.Slot ~= nil and trait.Slot == "Spell"
 end
 
 function build_pin_data()
@@ -64,42 +68,34 @@ function build_elemental_data()
 end
 
 function write_to_python_process(pyHandle, mainString, failString)
-	pyHandle:write((mainString or failString) .. "\n")
-	--[[
 	local writeSucc, errmsg = pyHandle:write((mainString or failString) .. "\n")
 	if not writeSucc then
 		rom.log.warning(errmsg)
 	end
-	]]
+end
+
+function readRaritySafe(trait)
+	if trait.Rarity == nil then return "Common" end
+	return trait.Rarity
 end
 
 function send_twitch_data()
 	pinsString = nil
 	weaponString = nil
-	keepsakeString = nil
+	extraString = ""
 	boonList = ""
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
 		if isWeaponTrait(currentTrait) and weaponString == nil then
-			if currentTrait.Rarity == nil then
-				rarity = "Common"
-			else
-				rarity = currentTrait.Rarity
-			end
-			weaponString = rarity .. dataSeparator .. currentTrait.Name
+			weaponString = readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name
 		end
-		if isKeepsakeTrait(currentTrait) and keepsakeString == nil then
-			if currentTrait.Rarity == nil then
-				rarity = "Common"
-			else
-				rarity = currentTrait.Rarity
-			end
-			keepsakeString = rarity .. dataSeparator .. currentTrait.Name
+		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) then
+			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 		end
 		if isHammerTrait(currentTrait) then
 			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
 		end
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
-			boonList = boonList .. currentTrait.Rarity .. dataSeparator .. currentTrait.Name .. " "
+			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 		end
 	end
 	if boonList == "" then boonList = nil end
@@ -118,8 +114,8 @@ function send_twitch_data()
 	if familiarString ~= nil then
 		rom.log.warning("Familiar: " .. familiarString)
 	end
-	if keepsakeString ~= nil then
-		rom.log.warning("Keepsake: " .. keepsakeString)
+	if extraString ~= nil then
+		rom.log.warning("Extra: " .. extraString)
 	end
 	if elementsString ~= nil then
 		rom.log.warning("Elements: " .. elementsString)
@@ -128,6 +124,7 @@ function send_twitch_data()
 		rom.log.warning("Pins: " .. pinsString)
 	end
 	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
+		.. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid) -- tell python where it is running
 		.. " > " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1")) -- redirect stdout of python to a file
 
     local pyHandle, openErr = io.popen(comm, "w")
@@ -136,7 +133,7 @@ function send_twitch_data()
 		write_to_python_process(pyHandle, boonList, NOBOONS)
 		write_to_python_process(pyHandle, weaponString, NOWEAPONS)
 		write_to_python_process(pyHandle, familiarString, NOFAMILIARS)
-		write_to_python_process(pyHandle, keepsakeString, NOKEEPSAKES)
+		write_to_python_process(pyHandle, extraString, NOEXTRAS)
 		write_to_python_process(pyHandle, elementString, NOELEMENTS)
 		write_to_python_process(pyHandle, pinsString, NOPINS)
 		
