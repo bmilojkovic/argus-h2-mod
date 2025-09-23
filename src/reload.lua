@@ -13,23 +13,7 @@ local NOEXTRAS = "NOEXTRAS"
 local NOELEMENTS = "NOELEMENTS"
 local dataSeparator = ";;"
 
-function isWeaponTrait(trait)
-	return trait.Slot ~= nil and trait.Slot == "Aspect"
-end
-
-function isHammerTrait(trait)
-	return trait.IsHammerTrait ~= nil and trait.IsHammerTrait
-end
-
-function isKeepsakeTrait(trait)
-	return trait.Slot ~= nil and trait.Slot == "Keepsake"
-end
-
-function isHexTrait(trait)
-	return trait.Slot ~= nil and trait.Slot == "Spell"
-end
-
-function build_pin_data()
+local function buildPinData()
 	pinData = ""
 	if (game.GameState.StoreItemPins ~= nil) then
 		
@@ -51,7 +35,7 @@ function build_pin_data()
 	return pinData
 end
 
-function build_elemental_data()
+local function buildElementalData()
 	if game.CurrentRun.Hero.Elements == nil then return NOELEMENTS end
 	elements = {"Fire", "Air", "Earth", "Water", "Aether"}
 	elementString = ""
@@ -67,44 +51,50 @@ function build_elemental_data()
 	return elementString
 end
 
-function write_to_python_process(pyHandle, mainString, failString)
+local function writeToPythonProcess(pyHandle, mainString, failString)
 	local writeSucc, errmsg = pyHandle:write((mainString or failString) .. "\n")
 	if not writeSucc then
 		rom.log.warning(errmsg)
 	end
 end
 
-function readRaritySafe(trait)
+local function readRaritySafe(trait)
 	if trait.Rarity == nil then return "Common" end
+	if trait.IsElementalTrait ~= nil and trait.IsElementalTrait then return "Infusion" end
 	return trait.Rarity
 end
 
-function send_twitch_data()
+function sendTwitchData()
 	pinsString = nil
 	weaponString = nil
+	familiarString = nil
 	extraString = ""
 	boonList = ""
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
 		if isWeaponTrait(currentTrait) and weaponString == nil then
 			weaponString = readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name
 		end
-		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) then
-			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
+		if isFamiliarTrait(currentTrait) and familiarString == nil then
+			familiarString = currentTrait.Name
 		end
-		if isHammerTrait(currentTrait) then
-			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
+		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or isChaosCurse(currentTrait) then
+			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 		end
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
 			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 		end
+		if isChaosBlessing(currentTrait) or isHadesBoon(currentTrait) then
+			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
+		end
+		if isHammerTrait(currentTrait) or isArachneTrait(currentTrait) then
+			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
+		end
+		
 	end
 	if boonList == "" then boonList = nil end
 	
-	elementsString = build_elemental_data()
-	if game.GameState.EquippedFamiliar ~= nil then
-		familiarString = game.GameState.EquippedFamiliar
-	end
-	pinsString = build_pin_data()
+	elementsString = buildElementalData()
+	pinsString = buildPinData()
 	if boonList ~= nil then
 		rom.log.warning("Boon list: " .. boonList)
 	end
@@ -130,12 +120,12 @@ function send_twitch_data()
     local pyHandle, openErr = io.popen(comm, "w")
 	
 	if pyHandle ~= nil then
-		write_to_python_process(pyHandle, boonList, NOBOONS)
-		write_to_python_process(pyHandle, weaponString, NOWEAPONS)
-		write_to_python_process(pyHandle, familiarString, NOFAMILIARS)
-		write_to_python_process(pyHandle, extraString, NOEXTRAS)
-		write_to_python_process(pyHandle, elementString, NOELEMENTS)
-		write_to_python_process(pyHandle, pinsString, NOPINS)
+		writeToPythonProcess(pyHandle, boonList, NOBOONS)
+		writeToPythonProcess(pyHandle, weaponString, NOWEAPONS)
+		writeToPythonProcess(pyHandle, familiarString, NOFAMILIARS)
+		writeToPythonProcess(pyHandle, extraString, NOEXTRAS)
+		writeToPythonProcess(pyHandle, elementString, NOELEMENTS)
+		writeToPythonProcess(pyHandle, pinsString, NOPINS)
 		
 		pyHandle:flush()
 	else
@@ -143,7 +133,6 @@ function send_twitch_data()
 	end
 end
 
-function trigger_gift()
-	rom.log.warning(stringify_table(game.CurrentRun.Hero.Traits))
-	modutil.mod.Hades.PrintOverhead(config.message)
+function triggerGift()
+	rom.log.warning(stringifyTable(game.CurrentRun.Hero.Traits))
 end

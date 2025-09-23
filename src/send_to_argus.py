@@ -126,7 +126,7 @@ if "test" in args:
     if args["test"] == "test1":
         boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon"
         weapon_data = "Rare;;DaggerBlockAspect"
-        familiar_data = "CatFamiliar"
+        familiar_data = "LastStandFamiliar"
         extra_data = "Epic;;ForceZeusBoonKeepsake Common;;SpellSummonTrait"
         elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
         pin_data = "RandomStatusBoon;;DoubleExManaBoon"

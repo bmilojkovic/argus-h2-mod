@@ -7,12 +7,12 @@
 -- 	so you will most likely want to have it reference
 --	values and functions later defined in `reload.lua`.
 
-function stringify_table(someTable)
+function stringifyTable(someTable)
 	if type(someTable) == 'table' then
       local s = '{ '
       for k,v in pairs(someTable) do
          k = '"'..k..'"'
-         s = s .. k .. ' : ' .. stringify_table(v) .. ','
+         s = s .. k .. ' : ' .. stringifyTable(v) .. ','
       end
       return s .. '} '
    else
@@ -21,12 +21,11 @@ function stringify_table(someTable)
 end
 
 game.OnControlPressed({'Gift', function()
-	return trigger_gift()
+	return triggerGift()
 end})
 
 modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
 	newTrait = base(...)
-   game.thread(send_twitch_data)
-   --send_twitch_data()
+   game.thread(sendTwitchData)
 	return newTrait
 end)
