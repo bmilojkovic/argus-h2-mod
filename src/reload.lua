@@ -11,6 +11,8 @@ local NOWEAPONS = "NOWEAPONS"
 local NOFAMILIARS = "NOFAMILIARS"
 local NOEXTRAS = "NOEXTRAS"
 local NOELEMENTS = "NOELEMENTS"
+local NOVOWS = "NOVOWS"
+local NOARCANA = "NOARCANA"
 local dataSeparator = ";;"
 
 local function buildPinData()
@@ -64,12 +66,44 @@ local function readRaritySafe(trait)
 	return trait.Rarity
 end
 
+local function buildVowData()
+	vowString = ""
+	if game.GameState.ShrineUpgrades ~= nil then
+		for vowName, vowLevel in pairs(game.GameState.ShrineUpgrades) do
+			if vowLevel ~= 0 then
+				vowString = vowString .. vowLevel .. dataSeparator .. vowName .. " "
+			end
+		end
+	end
+
+	if vowString == "" then vowString = NOVOWS end
+	
+	return vowString
+end
+
+local function buildArcanaData()
+	local arcanaString = ""
+	if game.GameState.MetaUpgradeState ~= nil then
+		for arcanaName, arcanaTable in pairs(game.GameState.MetaUpgradeState) do
+			if arcanaTable.Equipped and arcanaTable.Level ~= nil then
+				arcanaString = arcanaString .. arcanaTable.Level .. dataSeparator .. arcanaName .. " "
+			end
+		end
+	end
+
+	if arcanaString == "" then arcanaString = NOARCANA end
+
+	return arcanaString
+end
+
 function sendTwitchData()
 	pinsString = nil
 	weaponString = nil
 	familiarString = nil
 	extraString = ""
 	boonList = ""
+	vowString = nil
+	arcanaString = nil
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
 		if isWeaponTrait(currentTrait) and weaponString == nil then
 			weaponString = readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name
@@ -95,6 +129,8 @@ function sendTwitchData()
 	
 	elementsString = buildElementalData()
 	pinsString = buildPinData()
+	vowString = buildVowData()
+	arcanaString = buildArcanaData()
 	if boonList ~= nil then
 		rom.log.warning("Boon list: " .. boonList)
 	end
@@ -113,6 +149,12 @@ function sendTwitchData()
 	if pinsString ~= nil then
 		rom.log.warning("Pins: " .. pinsString)
 	end
+	if vowString ~= nil then
+		rom.log.warning("Vows: " .. vowString)
+	end
+	if arcanaString ~= nil then
+		rom.log.warning("Arcana: " .. arcanaString)
+	end
 	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
 		.. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid) -- tell python where it is running
 		.. " > " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1")) -- redirect stdout of python to a file
@@ -126,6 +168,8 @@ function sendTwitchData()
 		writeToPythonProcess(pyHandle, extraString, NOEXTRAS)
 		writeToPythonProcess(pyHandle, elementString, NOELEMENTS)
 		writeToPythonProcess(pyHandle, pinsString, NOPINS)
+		writeToPythonProcess(pyHandle, vowString, NOVOWS)
+		writeToPythonProcess(pyHandle, arcanaString, NOARCANA)
 		
 		pyHandle:flush()
 	else
@@ -135,4 +179,6 @@ end
 
 function triggerGift()
 	rom.log.warning(stringifyTable(game.CurrentRun.Hero.Traits))
+	rom.log.warning("------")
+	rom.log.warning(buildArcanaData())
 end

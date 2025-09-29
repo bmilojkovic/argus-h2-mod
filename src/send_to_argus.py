@@ -60,7 +60,7 @@ def get_argus_token():
     
     return do_argus_auth(config, config_file_path)
 
-async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data):
+async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data):
     argus_token = get_argus_token()
     sys.stdout.write("Logged in user: " + argus_token + "\n")
 
@@ -70,6 +70,8 @@ async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, ele
     sys.stdout.write("Extras: " + str(extra_data) + "\n")
     sys.stdout.write("Elements: " + str(elemental_data) + "\n")
     sys.stdout.write("Pins: " + str(pin_data) + "\n")
+    sys.stdout.write("Vows: " + str(vow_data) + "\n")
+    sys.stdout.write("Arcana: " + str(arcana_data) + "\n")
    
     response = requests.post(
         "http://localhost:3000/run_info",
@@ -81,7 +83,9 @@ async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, ele
                 "familiarData": familiar_data.strip(),
                 "extraData": extra_data.strip(),                        
                 "elementalData" : elemental_data.strip(),
-                "pinData" : pin_data.strip()
+                "pinData" : pin_data.strip(),
+                "vowData": vow_data.strip(),
+                "arcanaData": arcana_data.strip()
             }
         })
     sys.stdout.write("Response: " + str(response))
@@ -92,6 +96,8 @@ NOFAMILIARS = "NOFAMILIARS"
 NOEXTRAS = "NOEXTRAS"
 NOELEMENTS = "NOELEMENTS"
 NOPINS = "NOPINS"
+NOVOWS = "NOVOWS"
+NOARCANA = "NOARCANA"
 
 def read_data_from_stdin():
     boon_data = sys.stdin.readline()
@@ -100,6 +106,8 @@ def read_data_from_stdin():
     extra_data = sys.stdin.readline()
     elemental_data = sys.stdin.readline()
     pin_data = sys.stdin.readline()
+    vow_data = sys.stdin.readline()
+    arcana_data = sys.stdin.readline()
 
     if (boon_data == NOBOONS):
         boon_data = ""
@@ -113,8 +121,12 @@ def read_data_from_stdin():
         elemental_data = ""
     if (pin_data == NOELEMENTS):
         pin_data = ""
+    if (vow_data == NOVOWS):
+        vow_data = ""
+    if (arcana_data == NOARCANA):
+        arcana_data = ""
 
-    return boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data
+    return boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data
 
 arg_parser = argparse.ArgumentParser(description="Send argus data to the argus backend.")
 arg_parser.add_argument('--pluginpath', required=True, help="Full path to the Argus plugin folder.")
@@ -130,6 +142,8 @@ if "test" in args:
         extra_data = "Epic;;ForceZeusBoonKeepsake Common;;SpellSummonTrait"
         elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
         pin_data = "RandomStatusBoon;;DoubleExManaBoon"
+        vow_data = "4;;BossDifficultyShrineUpgrade 1;;MinibossCountShrineUpgrade 2;;NextBiomeEnemyShrineUpgrade 2;;BiomeSpeedShrineUpgrade"
+        arcana_data = "3;;ScreenReroll 3;;StatusVulnerability 2;;ChanneledCast"
     elif args["test"] == "test2":
         boon_data = "Common;;ApolloWeaponBoon"
         weapon_data = "NOWEAPONS"
@@ -137,8 +151,10 @@ if "test" in args:
         extra_data = "NOEXTRAS"
         elemental_data = "Fire:0;;Water:0;;Earth:0;;Air:0;;Aether:0"
         pin_data = "NOPINS"
+        vow_data = "NOVOWS"
+        arcana_data = "NOARCANA"
     else:
-        boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data = read_data_from_stdin()
+        boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data = read_data_from_stdin()
 else:
-    boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data = read_data_from_stdin()
-asyncio.run(send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data))
+    boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data = read_data_from_stdin()
+asyncio.run(send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data))

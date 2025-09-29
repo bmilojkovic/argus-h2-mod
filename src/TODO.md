@@ -15,6 +15,7 @@
   * Implement twitch token refreshes
   * Implement asking the user to relogin with twitch
   * Have the backend check mod version and decide weather it should forward the data to extension or not. We want to do this in case of a big game patch, and data is all wrong.
+  * Add nice logging messaging on frontend
 * Support for:
   * Artemis
   * Hades
