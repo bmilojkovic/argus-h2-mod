@@ -2,8 +2,10 @@
 ## Will do
 * Arcana cards
 * Vows of night
-* Backend is currently sending >5KB at around middle of run. Need to find a way to reduce it.
-* Add icons to description text (currently limited to text only)
+* Check Linux
+* Find a tooltip library for showing descritions in FE.
+* Make sure to send "empty" values when  things are empty (eg start a new run without a pet - it should go away)
+* Add icons to description text (currently we are limited to text only)
 * Read pet effects correctly instead of assuming max rank
 * Some specific keepsake details
   * Add evil eye detail (who killed you)
@@ -16,6 +18,7 @@
   * Implement asking the user to relogin with twitch
   * Have the backend check mod version and decide weather it should forward the data to extension or not. We want to do this in case of a big game patch, and data is all wrong.
   * Add nice logging messaging on frontend
+  * Make the frontend resistant to any properties missing.
 * Support for:
   * Artemis
   * Hades
@@ -31,7 +34,13 @@
 ## Need to test
 * Test Apollo legendary with torches - seems to be a different Trait
 * Check in-game how the chaos infusion boon (chant) works with respect to rarity. Is is infusion or common/rare/epic?
+* Make a benchmark for number of messages sent to twitch. Make sure it is below 100/min. Also, add a warning log if we get close.
+* Check if perfect-level weapons work (they probably don't)
+* If you get the same Chaos blessing twice, is it two Traits?
 
 ## Maybe doing
 * Support for Echo?
 * Consumables?
+
+## For later
+* To get actual values: look at TraitData and TraitLogic. Specifically ExtractValues and SetTraitTextData.

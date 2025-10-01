@@ -25,7 +25,7 @@ game.OnControlPressed({'Gift', function()
 end})
 
 modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
-	newTrait = base(...)
+	local newTrait = base(...)
    game.thread(sendTwitchData)
 	return newTrait
 end)

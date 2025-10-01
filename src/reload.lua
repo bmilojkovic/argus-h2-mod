@@ -16,7 +16,7 @@ local NOARCANA = "NOARCANA"
 local dataSeparator = ";;"
 
 local function buildPinData()
-	pinData = ""
+	local pinData = ""
 	if (game.GameState.StoreItemPins ~= nil) then
 		
 		for _, v in ipairs(game.GameState.StoreItemPins) do
@@ -39,25 +39,18 @@ end
 
 local function buildElementalData()
 	if game.CurrentRun.Hero.Elements == nil then return NOELEMENTS end
-	elements = {"Fire", "Air", "Earth", "Water", "Aether"}
-	elementString = ""
+	local elements = {"Fire", "Air", "Earth", "Water", "Aether"}
+	local elementsString = ""
 	for _,element in ipairs(elements) do
-		elementString = elementString .. element .. ":" .. game.CurrentRun.Hero.Elements[element] .. dataSeparator
+		elementsString = elementsString .. element .. ":" .. game.CurrentRun.Hero.Elements[element] .. dataSeparator
 	end
 
 	--cut off the last dataSeparator
-	if string.len(elementString) > 0 then
-		elementString = string.sub(elementString, 0, string.len(elementString) - string.len(dataSeparator))
+	if string.len(elementsString) > 0 then
+		elementsString = string.sub(elementsString, 0, string.len(elementsString) - string.len(dataSeparator))
 	end
 
-	return elementString
-end
-
-local function writeToPythonProcess(pyHandle, mainString, failString)
-	local writeSucc, errmsg = pyHandle:write((mainString or failString) .. "\n")
-	if not writeSucc then
-		rom.log.warning(errmsg)
-	end
+	return elementsString
 end
 
 local function readRaritySafe(trait)
@@ -67,7 +60,7 @@ local function readRaritySafe(trait)
 end
 
 local function buildVowData()
-	vowString = ""
+	local vowString = ""
 	if game.GameState.ShrineUpgrades ~= nil then
 		for vowName, vowLevel in pairs(game.GameState.ShrineUpgrades) do
 			if vowLevel ~= 0 then
@@ -96,14 +89,21 @@ local function buildArcanaData()
 	return arcanaString
 end
 
+local function writeToPythonProcess(pyHandle, mainString, failString)
+	local writeSucc, errmsg = pyHandle:write((mainString or failString) .. "\n")
+	if not writeSucc then
+		rom.log.warning(errmsg)
+	end
+end
+
 function sendTwitchData()
-	pinsString = nil
-	weaponString = nil
-	familiarString = nil
-	extraString = ""
-	boonList = ""
-	vowString = nil
-	arcanaString = nil
+	local pinsString = ""
+	local weaponString = ""
+	local familiarString = ""
+	local extraString = ""
+	local boonList = ""
+	local vowString = ""
+	local arcanaString = ""
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
 		if isWeaponTrait(currentTrait) and weaponString == nil then
 			weaponString = readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name
@@ -125,34 +125,33 @@ function sendTwitchData()
 		end
 		
 	end
-	if boonList == "" then boonList = nil end
 	
 	elementsString = buildElementalData()
 	pinsString = buildPinData()
 	vowString = buildVowData()
 	arcanaString = buildArcanaData()
-	if boonList ~= nil then
+	if boonList ~= "" then
 		rom.log.warning("Boon list: " .. boonList)
 	end
-	if weaponString ~= nil then
+	if weaponString ~= "" then
 		rom.log.warning("Weapon: " .. weaponString)
 	end
-	if familiarString ~= nil then
+	if familiarString ~= "" then
 		rom.log.warning("Familiar: " .. familiarString)
 	end
-	if extraString ~= nil then
+	if extraString ~= "" then
 		rom.log.warning("Extra: " .. extraString)
 	end
-	if elementsString ~= nil then
+	if elementsString ~= "" then
 		rom.log.warning("Elements: " .. elementsString)
 	end
-	if pinsString ~= nil then
+	if pinsString ~= "" then
 		rom.log.warning("Pins: " .. pinsString)
 	end
-	if vowString ~= nil then
+	if vowString ~= "" then
 		rom.log.warning("Vows: " .. vowString)
 	end
-	if arcanaString ~= nil then
+	if arcanaString ~= "" then
 		rom.log.warning("Arcana: " .. arcanaString)
 	end
 	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
@@ -166,7 +165,7 @@ function sendTwitchData()
 		writeToPythonProcess(pyHandle, weaponString, NOWEAPONS)
 		writeToPythonProcess(pyHandle, familiarString, NOFAMILIARS)
 		writeToPythonProcess(pyHandle, extraString, NOEXTRAS)
-		writeToPythonProcess(pyHandle, elementString, NOELEMENTS)
+		writeToPythonProcess(pyHandle, elementsString, NOELEMENTS)
 		writeToPythonProcess(pyHandle, pinsString, NOPINS)
 		writeToPythonProcess(pyHandle, vowString, NOVOWS)
 		writeToPythonProcess(pyHandle, arcanaString, NOARCANA)

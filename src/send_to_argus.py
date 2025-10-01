@@ -143,7 +143,7 @@ if "test" in args:
         elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
         pin_data = "RandomStatusBoon;;DoubleExManaBoon"
         vow_data = "4;;BossDifficultyShrineUpgrade 1;;MinibossCountShrineUpgrade 2;;NextBiomeEnemyShrineUpgrade 2;;BiomeSpeedShrineUpgrade"
-        arcana_data = "3;;ScreenReroll 3;;StatusVulnerability 2;;ChanneledCast"
+        arcana_data = "3;;ScreenReroll 3;;StatusVulnerability 2;;ChanneledCast 3;;HealthRegen 3;;LowManaDamageBonus 1;;CastCount 3;;SorceryRegenUpgrade"
     elif args["test"] == "test2":
         boon_data = "Common;;ApolloWeaponBoon"
         weapon_data = "NOWEAPONS"
