@@ -11,16 +11,16 @@ from argus_util import argus_log
 async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data):
     argus_token = argus_auth.get_argus_token(args["pluginpath"])
     
-    argus_log("Logged in user: " + argus_token)
+    argus_log("Logged in user: " + argus_token.strip())
 
-    argus_log("Boon list: " + str(boon_data))
-    argus_log("Weapon: " + str(weapon_data))
-    argus_log("Familiar: " + str(familiar_data))
-    argus_log("Extras: " + str(extra_data))
-    argus_log("Elements: " + str(elemental_data))
-    argus_log("Pins: " + str(pin_data))
-    argus_log("Vows: " + str(vow_data))
-    argus_log("Arcana: " + str(arcana_data))
+    argus_log("Boon list: " + str(boon_data.strip()))
+    argus_log("Weapon: " + str(weapon_data.strip()))
+    argus_log("Familiar: " + str(familiar_data.strip()))
+    argus_log("Extras: " + str(extra_data.strip()))
+    argus_log("Elements: " + str(elemental_data.strip()))
+    argus_log("Pins: " + str(pin_data.strip()))
+    argus_log("Vows: " + str(vow_data.strip()))
+    argus_log("Arcana: " + str(arcana_data.strip()))
    
     response = requests.post(
         "http://localhost:3000/run_info",

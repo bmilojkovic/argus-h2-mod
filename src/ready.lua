@@ -29,3 +29,8 @@ modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
    game.thread(sendTwitchData)
 	return newTrait
 end)
+
+modutil.mod.Path.Wrap("EquipKeepsake", function(base, ...)
+   base(...)
+   game.thread(sendTwitchData)
+end)

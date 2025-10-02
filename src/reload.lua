@@ -90,7 +90,12 @@ local function buildArcanaData()
 end
 
 local function writeToPythonProcess(pyHandle, mainString, failString)
-	local writeSucc, errmsg = pyHandle:write(mainString .. "\n")
+	local writeSucc, errmsg
+	if mainString ~= "" then
+		writeSucc, errmsg = pyHandle:write(mainString .. "\n")
+	else
+		writeSucc, errmsg = pyHandle:write(failString .. "\n")
+	end
 	if not writeSucc then
 		rom.log.warning(errmsg)
 	end
@@ -113,15 +118,11 @@ function sendTwitchData()
 			familiarString = currentTrait.Name
 			goto continue_loop
 		end
-		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or isChaosCurse(currentTrait) then
+		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or isChaosCurse(currentTrait) or isHadesBoon(currentTrait) then
 			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
-        if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
-			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
-			goto continue_loop
-		end
-		if isChaosBlessing(currentTrait) or isHadesBoon(currentTrait) then
+        if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or isChaosBlessing(currentTrait) then
 			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
