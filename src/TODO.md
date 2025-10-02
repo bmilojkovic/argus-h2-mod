@@ -1,17 +1,9 @@
 
 ## Will do
-* Arcana cards
-* Vows of night
-* Check Linux
+* Forget-me-nots
 * Find a tooltip library for showing descritions in FE.
 * Make sure to send "empty" values when  things are empty (eg start a new run without a pet - it should go away)
-* Add icons to description text (currently we are limited to text only)
 * Read pet effects correctly instead of assuming max rank
-* Some specific keepsake details
-  * Add evil eye detail (who killed you)
-  * Add blackened fleece detail (current total damage)
-  * Confirm all others are OK
-* Add hammer ranks
 * Security
   * Add timeout for pending argus token requests (also consider if other such timeouts are needed)
   * Implement twitch token refreshes
@@ -30,6 +22,7 @@
   * Dionysus (check in-game)
   * Hermes
   * Chaos (need to separate curses in-game and add them to extra)
+* Make successful login screen have a link to the twitch extension.
 
 ## Need to test
 * Test Apollo legendary with torches - seems to be a different Trait
@@ -37,10 +30,16 @@
 * Make a benchmark for number of messages sent to twitch. Make sure it is below 100/min. Also, add a warning log if we get close.
 * Check if perfect-level weapons work (they probably don't)
 * If you get the same Chaos blessing twice, is it two Traits?
+* Check Linux
 
 ## Maybe doing
 * Support for Echo?
 * Consumables?
+* Add hammer ranks
 
 ## For later
 * To get actual values: look at TraitData and TraitLogic. Specifically ExtractValues and SetTraitTextData.
+* Some specific keepsake details
+  * Add evil eye detail (who killed you)
+  * Add blackened fleece detail (current total damage)
+* Add icons to description text (currently we are limited to text only)

@@ -2,76 +2,25 @@ import asyncio
 import requests
 import sys
 
-import urllib
-import webbrowser
-import secrets
-import time
-import configparser
 import argparse
-import os
 
-extension_id = "sl19e3aebmadlewzt7mxfv3j3llwwv"
-
-def do_argus_auth(config, config_file_path):
-    base_url = "https://id.twitch.tv/oauth2/authorize"
-    stateBytes = secrets.token_hex(16)
-    params = {
-        "response_type": "code",
-        "client_id": extension_id,
-        "state": stateBytes,
-        "redirect_uri": "http://localhost:3000/oauth_token",
-        "scope": urllib.parse.quote_plus("openid")
-        }
-
-    target_url = base_url + "?"
-
-    for key, value in params.items():
-        target_url += key + "=" + value + "&"
-
-    webbrowser.open(target_url)
-    retries = 60
-    while retries > 0:
-        response = requests.post("http://localhost:3000/get_argus_token", json = {"state": stateBytes}, timeout=60)
-
-        print(response.text)
-        if response.status_code == 200 and response.text != "FAIL":
-            config["DEFAULT"] = {"argus_token" : response.text}
-            with open(config_file_path, "w") as config_file:
-                config.write(config_file)
-            return response.text
-        else:
-            retries = retries - 1
-        time.sleep(1)
-
-def check_argus_token_ok(argus_token):
-    response = requests.get("http://localhost:3000/check_argus_token", params={"argus_token" : argus_token})
-    print("checking token " + argus_token + " and got response " + response.text)
-    return response.status_code == 200 and response.text == "token_ok"
-
-def get_argus_token():
-    config_file_path = args["pluginpath"] + os.sep + "argus_token.ini"
-    config = configparser.ConfigParser()
-    config.read(config_file_path)
-
-    if "DEFAULT" in config and "argus_token" in config["DEFAULT"]:
-        argus_token = config["DEFAULT"]["argus_token"]
-        if check_argus_token_ok(argus_token):
-            return argus_token
-    
-    return do_argus_auth(config, config_file_path)
+import argus_auth
+import argus_testing
+from argus_util import argus_log
 
 async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data):
-    argus_token = get_argus_token()
-    sys.stdout.write("Logged in user: " + argus_token + "\n")
+    argus_token = argus_auth.get_argus_token(args["pluginpath"])
+    
+    argus_log("Logged in user: " + argus_token)
 
-    sys.stdout.write("Boon list: " + str(boon_data) + "\n")
-    sys.stdout.write("Weapon: " + str(weapon_data) + "\n")
-    sys.stdout.write("Familiar: " + str(familiar_data) + "\n")
-    sys.stdout.write("Extras: " + str(extra_data) + "\n")
-    sys.stdout.write("Elements: " + str(elemental_data) + "\n")
-    sys.stdout.write("Pins: " + str(pin_data) + "\n")
-    sys.stdout.write("Vows: " + str(vow_data) + "\n")
-    sys.stdout.write("Arcana: " + str(arcana_data) + "\n")
+    argus_log("Boon list: " + str(boon_data))
+    argus_log("Weapon: " + str(weapon_data))
+    argus_log("Familiar: " + str(familiar_data))
+    argus_log("Extras: " + str(extra_data))
+    argus_log("Elements: " + str(elemental_data))
+    argus_log("Pins: " + str(pin_data))
+    argus_log("Vows: " + str(vow_data))
+    argus_log("Arcana: " + str(arcana_data))
    
     response = requests.post(
         "http://localhost:3000/run_info",
@@ -90,15 +39,6 @@ async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, ele
         })
     sys.stdout.write("Response: " + str(response))
 
-NOBOONS = "NOBOONS"
-NOWEAPONS = "NOWEAPONS"
-NOFAMILIARS = "NOFAMILIARS"
-NOEXTRAS = "NOEXTRAS"
-NOELEMENTS = "NOELEMENTS"
-NOPINS = "NOPINS"
-NOVOWS = "NOVOWS"
-NOARCANA = "NOARCANA"
-
 def read_data_from_stdin():
     boon_data = sys.stdin.readline()
     weapon_data = sys.stdin.readline()
@@ -109,52 +49,20 @@ def read_data_from_stdin():
     vow_data = sys.stdin.readline()
     arcana_data = sys.stdin.readline()
 
-    if (boon_data == NOBOONS):
-        boon_data = ""
-    if (weapon_data == NOWEAPONS):
-        weapon_data = ""
-    if (familiar_data == NOFAMILIARS):
-        familiar_data = ""
-    if (extra_data == NOEXTRAS):
-        extra_data = ""
-    if (elemental_data == NOELEMENTS):
-        elemental_data = ""
-    if (pin_data == NOELEMENTS):
-        pin_data = ""
-    if (vow_data == NOVOWS):
-        vow_data = ""
-    if (arcana_data == NOARCANA):
-        arcana_data = ""
-
     return boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data
 
-arg_parser = argparse.ArgumentParser(description="Send argus data to the argus backend.")
-arg_parser.add_argument('--pluginpath', required=True, help="Full path to the Argus plugin folder.")
-arg_parser.add_argument('--test', choices=["test1", "test2"], help="Run one of the prepared tests.")
-
-args = vars(arg_parser.parse_args())
-
-if "test" in args:
-    if args["test"] == "test1":
-        boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon"
-        weapon_data = "Rare;;DaggerBlockAspect"
-        familiar_data = "LastStandFamiliar"
-        extra_data = "Epic;;ForceZeusBoonKeepsake Common;;SpellSummonTrait"
-        elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
-        pin_data = "RandomStatusBoon;;DoubleExManaBoon"
-        vow_data = "4;;BossDifficultyShrineUpgrade 1;;MinibossCountShrineUpgrade 2;;NextBiomeEnemyShrineUpgrade 2;;BiomeSpeedShrineUpgrade"
-        arcana_data = "3;;ScreenReroll 3;;StatusVulnerability 2;;ChanneledCast 3;;HealthRegen 3;;LowManaDamageBonus 1;;CastCount 3;;SorceryRegenUpgrade"
-    elif args["test"] == "test2":
-        boon_data = "Common;;ApolloWeaponBoon"
-        weapon_data = "NOWEAPONS"
-        familiar_data = "NOFAMILIARS"
-        extra_data = "NOEXTRAS"
-        elemental_data = "Fire:0;;Water:0;;Earth:0;;Air:0;;Aether:0"
-        pin_data = "NOPINS"
-        vow_data = "NOVOWS"
-        arcana_data = "NOARCANA"
+def main():
+    if args["test"] is not None:
+        boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data = argus_testing.get_test_data(args["test"])
     else:
         boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data = read_data_from_stdin()
-else:
-    boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data = read_data_from_stdin()
-asyncio.run(send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data))
+    asyncio.run(send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data))
+
+if __name__ == "__main__":
+    arg_parser = argparse.ArgumentParser(description="Send Argus data to the Argus backend.")
+    arg_parser.add_argument('--pluginpath', required=True, help="Path to the Argus plugin folder.")
+    arg_parser.add_argument('--test', choices=["test1", "test2"], help="Run one of the prepared tests.")
+
+    args = vars(arg_parser.parse_args())
+
+    main()

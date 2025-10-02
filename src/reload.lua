@@ -90,7 +90,7 @@ local function buildArcanaData()
 end
 
 local function writeToPythonProcess(pyHandle, mainString, failString)
-	local writeSucc, errmsg = pyHandle:write((mainString or failString) .. "\n")
+	local writeSucc, errmsg = pyHandle:write(mainString .. "\n")
 	if not writeSucc then
 		rom.log.warning(errmsg)
 	end
@@ -105,27 +105,37 @@ function sendTwitchData()
 	local vowString = ""
 	local arcanaString = ""
 	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
-		if isWeaponTrait(currentTrait) and weaponString == nil then
+		if isWeaponTrait(currentTrait) and weaponString == "" then
 			weaponString = readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name
+			goto continue_loop
 		end
-		if isFamiliarTrait(currentTrait) and familiarString == nil then
+		if isFamiliarTrait(currentTrait) and familiarString == "" then
 			familiarString = currentTrait.Name
+			goto continue_loop
 		end
 		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or isChaosCurse(currentTrait) then
 			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
+			goto continue_loop
 		end
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) then
 			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
+			goto continue_loop
 		end
 		if isChaosBlessing(currentTrait) or isHadesBoon(currentTrait) then
 			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
+			goto continue_loop
 		end
 		if isHammerTrait(currentTrait) or isArachneTrait(currentTrait) then
 			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
+			goto continue_loop
 		end
-		
+		::continue_loop::
 	end
 	
+	if weaponString == "" then
+		rom.log.warning("Didn't find weapon trait. Skipping cycle.")
+		return
+	end
 	elementsString = buildElementalData()
 	pinsString = buildPinData()
 	vowString = buildVowData()
@@ -156,7 +166,7 @@ function sendTwitchData()
 	end
 	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
 		.. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid) -- tell python where it is running
-		.. " > " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1")) -- redirect stdout of python to a file
+		.. " >> " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1")) -- redirect stdout of python to a file
 
     local pyHandle, openErr = io.popen(comm, "w")
 	

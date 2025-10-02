@@ -30,7 +30,7 @@ function isFamiliarTrait(trait)
 end
 
 function isArachneTrait(trait)
-	return trait.IsCostumeTrait ~= nil and trait.IsCostumeTrait
+	return trait.CostumeTrait ~= nil and trait.CostumeTrait
 end
 
 function isChaosBlessing(trait)
