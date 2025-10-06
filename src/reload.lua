@@ -18,7 +18,6 @@ local dataSeparator = ";;"
 local function buildPinData()
 	local pinData = ""
 	if (game.GameState.StoreItemPins ~= nil) then
-		
 		for _, v in ipairs(game.GameState.StoreItemPins) do
 			if v["Name"] ~= nil then
 				pinData = pinData .. v["Name"] .. dataSeparator
@@ -29,7 +28,6 @@ local function buildPinData()
 		if string.len(pinData) > 0 then
 			pinData = string.sub(pinData, 0, string.len(pinData) - string.len(dataSeparator))
 		end
-		
 	else
 		return NOPINS
 	end
@@ -39,9 +37,9 @@ end
 
 local function buildElementalData()
 	if game.CurrentRun.Hero.Elements == nil then return NOELEMENTS end
-	local elements = {"Fire", "Air", "Earth", "Water", "Aether"}
+	local elements = { "Fire", "Air", "Earth", "Water", "Aether" }
 	local elementsString = ""
-	for _,element in ipairs(elements) do
+	for _, element in ipairs(elements) do
 		elementsString = elementsString .. element .. ":" .. game.CurrentRun.Hero.Elements[element] .. dataSeparator
 	end
 
@@ -70,7 +68,7 @@ local function buildVowData()
 	end
 
 	if vowString == "" then vowString = NOVOWS end
-	
+
 	return vowString
 end
 
@@ -109,7 +107,7 @@ function sendTwitchData()
 	local boonList = ""
 	local vowString = ""
 	local arcanaString = ""
-	for k, currentTrait in pairs( game.CurrentRun.Hero.Traits ) do
+	for k, currentTrait in pairs(game.CurrentRun.Hero.Traits) do
 		if isWeaponTrait(currentTrait) and weaponString == "" then
 			weaponString = readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name
 			goto continue_loop
@@ -118,21 +116,23 @@ function sendTwitchData()
 			familiarString = currentTrait.Name
 			goto continue_loop
 		end
-		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or isChaosCurse(currentTrait) or isHadesBoon(currentTrait) then
+		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or
+			isChaosCurse(currentTrait) or isHadesBoon(currentTrait) or isExtraIcarusTrait(currentTrait) then
 			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
-			goto continue_loop
-		end
-        if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or isChaosBlessing(currentTrait) then
-			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
 		if isHammerTrait(currentTrait) or isArachneTrait(currentTrait) then
 			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
+		if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or isChaosBlessing(currentTrait) or
+			isMainIcarusTrait(currentTrait) then
+			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
+			goto continue_loop
+		end
 		::continue_loop::
 	end
-	
+
 	if weaponString == "" then
 		rom.log.warning("Didn't find weapon trait. Skipping cycle.")
 		return
@@ -165,12 +165,12 @@ function sendTwitchData()
 	if arcanaString ~= "" then
 		rom.log.warning("Arcana: " .. arcanaString)
 	end
-	local comm = ('python '.. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
-		.. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid) -- tell python where it is running
-		.. " >> " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1")) -- redirect stdout of python to a file
+	local comm = ('python ' .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
+		.. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid)                  -- tell python where it is running
+		.. " >> " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1"))        -- redirect stdout of python to a file
 
-    local pyHandle, openErr = io.popen(comm, "w")
-	
+	local pyHandle, openErr = io.popen(comm, "w")
+
 	if pyHandle ~= nil then
 		writeToPythonProcess(pyHandle, boonList, NOBOONS)
 		writeToPythonProcess(pyHandle, weaponString, NOWEAPONS)
@@ -180,7 +180,7 @@ function sendTwitchData()
 		writeToPythonProcess(pyHandle, pinsString, NOPINS)
 		writeToPythonProcess(pyHandle, vowString, NOVOWS)
 		writeToPythonProcess(pyHandle, arcanaString, NOARCANA)
-		
+
 		pyHandle:flush()
 	else
 		rom.log.warning("Error in starting python script: " .. openErr)

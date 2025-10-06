@@ -9,10 +9,9 @@ import requests
 
 from argus_util import argus_log
 
-argus_backend = "http://localhost:3000"
 extension_id = "sl19e3aebmadlewzt7mxfv3j3llwwv"
 
-def do_argus_auth(config, config_file_path):
+def do_argus_auth(config, config_file_path, argus_backend):
     base_url = "https://id.twitch.tv/oauth2/authorize"
     stateBytes = secrets.token_hex(16)
     params = {
@@ -43,19 +42,19 @@ def do_argus_auth(config, config_file_path):
             retries = retries - 1
         time.sleep(1)
 
-def check_argus_token_ok(argus_token):
+def check_argus_token_ok(argus_token, argus_backend):
     response = requests.get(argus_backend + "/check_argus_token", params={"argus_token" : argus_token})
     argus_log("checking token " + argus_token + " and got response " + response.text)
     return response.status_code == 200 and response.text == "token_ok"
 
-def get_argus_token(pluginpath):
+def get_argus_token(pluginpath, argus_backend):
     config_file_path = pluginpath + os.sep + "argus_token.ini"
     config = configparser.ConfigParser()
     config.read(config_file_path)
 
     if "DEFAULT" in config and "argus_token" in config["DEFAULT"]:
         argus_token = config["DEFAULT"]["argus_token"]
-        if check_argus_token_ok(argus_token):
+        if check_argus_token_ok(argus_token, argus_backend):
             return argus_token
     
-    return do_argus_auth(config, config_file_path)
+    return do_argus_auth(config, config_file_path, argus_backend)

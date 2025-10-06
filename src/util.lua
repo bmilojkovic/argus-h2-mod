@@ -1,12 +1,21 @@
-
 ---@diagnostic disable: lowercase-global
 
+function listContains(list, item)
+	for _, value in ipairs(list) do
+		if value == item then
+			return true
+		end
+	end
+
+	return false
+end
+
 function startsWith(str, start)
-   return str:sub(1, #start) == start
+	return str:sub(1, #start) == start
 end
 
 function endsWith(str, ending)
-   return ending == "" or str:sub(-#ending) == ending
+	return ending == "" or str:sub(- #ending) == ending
 end
 
 function isWeaponTrait(trait)
@@ -29,8 +38,24 @@ function isFamiliarTrait(trait)
 	return trait.Slot ~= nil and trait.Slot == "Familiar"
 end
 
+local arachneTraits = { "VitalityCostume", "ManaCostume", "AgilityCostume", "CastDamageCostume", "IncomeCostume",
+	"HighArmorCostume", "SpellCostume", "EscalatingCostume" }
+
 function isArachneTrait(trait)
-	return trait.CostumeTrait ~= nil and trait.CostumeTrait
+	return trait.Name ~= nil and listContains(arachneTraits, trait.Name)
+end
+
+local mainIcarusTraits = { "FocusAttackDamageTrait",
+	"FocusSpecialDamageTrait", "OmegaExplodeBoon", "CastHazardBoon",
+	"UpgradeHammerBoon" };
+local extraIcarusTraits = { "BreakInvincibleArmorBoon", "BreakExplosiveArmorBoon", "SupplyDropBoon" };
+
+function isMainIcarusTrait(trait)
+	return trait.Name ~= nil and listContains(mainIcarusTraits, trait.Name)
+end
+
+function isExtraIcarusTrait(trait)
+	return trait.Name ~= nil and listContains(extraIcarusTraits, trait.Name)
 end
 
 function isChaosBlessing(trait)
