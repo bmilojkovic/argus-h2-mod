@@ -87,6 +87,40 @@ local function buildArcanaData()
 	return arcanaString
 end
 
+local familiarTraitMap = {
+	HealthFamiliar = { "HealthFamiliar", "FamiliarFrogResourceBonus", "FamiliarFrogDamage" },
+	CritFamiliar = { "CritFamiliar", "FamiliarRavenResourceBonus", "FamiliarRavenAttackDuration" },
+	LastStandFamiliar = { "LastStandFamiliar", "FamiliarCatResourceBonus", "FamiliarCatAttacks" },
+	DigFamiliar = { "DigFamiliar", "FamiliarHoundResourceBonus", "FamiliarHoundBarkDuration" },
+	DodgeFamiliar = { "DodgeFamiliar", "FamiliarPolecatResourceBonus", "FamiliarPolecatDamage" },
+}
+
+local function buildFamiliarData(familiarTrait)
+	if familiarTrait == nil or familiarTrait.Name == nil then
+		return NOFAMILIARS
+	end
+
+	local familiarString = familiarTrait.Name
+
+	local familiarTraits = familiarTraitMap[familiarTrait.Name];
+	local traitCounter = 1
+
+	for ind, familiarTrait in pairs(familiarTraits) do
+		for k, heroTrait in pairs(game.CurrentRun.Hero.Traits) do
+			if heroTrait.Name == familiarTrait then
+				familiarString = familiarString .. " " .. heroTrait.StackNum .. dataSeparator .. heroTrait.Name
+				traitCounter = traitCounter + 1
+			end
+		end
+	end
+
+	if traitCounter ~= 4 then
+		return "INVALID"
+	end
+
+	return familiarString
+end
+
 local function writeToPythonProcess(pyHandle, mainString, failString)
 	local writeSucc, errmsg
 	if mainString ~= "" then
@@ -113,7 +147,8 @@ function sendTwitchData()
 			goto continue_loop
 		end
 		if isFamiliarTrait(currentTrait) and familiarString == "" then
-			familiarString = currentTrait.Name
+			--familiarString = currentTrait.Name
+			familiarString = buildFamiliarData(currentTrait)
 			goto continue_loop
 		end
 		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or
@@ -135,6 +170,10 @@ function sendTwitchData()
 
 	if weaponString == "" then
 		rom.log.warning("Didn't find weapon trait. Skipping cycle.")
+		return
+	end
+	if familiarString == "INVALID" then
+		rom.log.warning("Partial familiar data. Skipping cycle.")
 		return
 	end
 	elementsString = buildElementalData()
@@ -190,5 +229,5 @@ end
 function triggerGift()
 	rom.log.warning(stringifyTable(game.CurrentRun.Hero.Traits))
 	rom.log.warning("------")
-	rom.log.warning(buildArcanaData())
+	--rom.log.warning(buildFamiliarData("HealthFamiliar"))
 end
