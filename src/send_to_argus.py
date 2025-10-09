@@ -64,7 +64,7 @@ def main():
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser(description="Send Argus data to the Argus backend.")
     arg_parser.add_argument('--pluginpath', required=True, help="Path to the Argus plugin folder.")
-    arg_parser.add_argument('--test', choices=["test1", "test2"], help="Run one of the prepared tests.")
+    arg_parser.add_argument('--test', choices=["test1", "test2", "pins"], help="Run one of the prepared tests.")
 
     args = vars(arg_parser.parse_args())
 

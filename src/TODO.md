@@ -1,8 +1,5 @@
 ## Will do
 
-- Forget-me-nots
-  - Add scrolling for boons that have too many requirements
-- Read pet effects correctly instead of assuming max rank
 - Security
   - Add nice logging messaging on frontend
   - Make the frontend resistant to any properties missing.
@@ -14,11 +11,11 @@
 - Test Apollo legendary with torches - seems to be a different Trait
 - Check in-game how the chaos infusion boon (chant) works with respect to rarity. Is is infusion or common/rare/epic?
 - Check in-game with pony:
-  - All gods
-  - Artemis
-  - Hades
-  - Arachne
-  - Medea
+  - All gods (DONE)
+  - Artemis (DONE)
+  - Hades (DONE)
+  - Arachne (DONE)
+  - Medea (DONE)
   - Circe
   - Icarus
   - Athena
@@ -44,9 +41,10 @@
 - Some specific keepsake details
   - Add evil eye detail (who killed you)
   - Add blackened fleece detail (current total damage)
-- Add icons to description text (currently we are limited to text only)
-- Add colors to description text
+- Crimson dress current damage bonus.
+- Add icons and colors to description text (currently we are limited to bold only)
 - Add hammer ranks
+- Use hammer frame where needed
 - Have the backend check mod version and decide weather it should forward the data to extension or not. We want to do this in case of a big game patch, and data is all wrong.
 - Consumables
 - Support for Echo

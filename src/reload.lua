@@ -52,8 +52,8 @@ local function buildElementalData()
 end
 
 local function readRaritySafe(trait)
-	if trait.Rarity == nil then return "Common" end
 	if trait.IsElementalTrait ~= nil and trait.IsElementalTrait then return "Infusion" end
+	if trait.Rarity == nil then return "Common" end
 	return trait.Rarity
 end
 
@@ -152,7 +152,8 @@ function sendTwitchData()
 			goto continue_loop
 		end
 		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or
-			isChaosCurse(currentTrait) or isHadesBoon(currentTrait) or isExtraIcarusTrait(currentTrait) then
+			isChaosCurse(currentTrait) or isExtraHadesBoon(currentTrait) or
+			isExtraIcarusTrait(currentTrait) or isExtraMedeaTrait(currentTrait) then
 			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
@@ -160,8 +161,9 @@ function sendTwitchData()
 			boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
-		if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or isChaosBlessing(currentTrait) or
-			isMainIcarusTrait(currentTrait) then
+		if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or
+			isChaosBlessing(currentTrait) or isMainHadesBoon(currentTrait) or
+			isMainIcarusTrait(currentTrait) or isMainMedeaTrait(currentTrait) then
 			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end

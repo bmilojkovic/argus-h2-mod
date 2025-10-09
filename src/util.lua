@@ -66,6 +66,28 @@ function isChaosCurse(trait)
 	return trait.Name ~= nil and startsWith(trait.Name, "Chaos") and endsWith(trait.Name, "Curse")
 end
 
-function isHadesBoon(trait)
-	return trait.Name ~= nil and startsWith(trait.Name, "Hades") and endsWith(trait.Name, "Boon")
+local mainHadesTraits = { "HadesDeathDefianceDamageBoon",
+	"HadesCastProjectileBoon", "HadesChronosDebuffBoon", "HadesDashSweepBoon",
+	"HadesManaUrnBoon" };
+local extraHadesTraits = { "HadesLifestealBoon", "HadesPreDamageBoon", "HadesInvisibilityRetaliateBoon" };
+
+function isMainHadesBoon(trait)
+	return trait.Name ~= nil and listContains(mainHadesTraits, trait.Name)
+end
+
+function isExtraHadesBoon(trait)
+	return trait.Name ~= nil and listContains(extraHadesTraits, trait.Name)
+end
+
+local mainMedeaTraits = { "HealingOnDeathCurse",
+	"MoneyOnDeathCurse", "ManaOverTimeCurse", "SpawnDamageCurse",
+	"ArmorPenaltyCurse", "SlowProjectileCurse", "DeathDefianceRetaliateCurse" };
+local extraMedeaTraits = { "NewStatusDamage" };
+
+function isMainMedeaTrait(trait)
+	return trait.Name ~= nil and listContains(mainMedeaTraits, trait.Name)
+end
+
+function isExtraMedeaTrait(trait)
+	return trait.Name ~= nil and listContains(extraMedeaTraits, trait.Name)
 end
