@@ -1,13 +1,13 @@
 ## Will do
 
 - Security
-  - Add nice logging messaging on frontend
   - Make the frontend resistant to any properties missing.
-  - Investigate why quick calls to AddTraitToHero skip some sends. Consider using a different hook.
 - Make successful login screen have a link to the twitch extension.
+- Stop doing auth every time
 
 ## Need to test
 
+- Test generator for python script
 - Test Apollo legendary with torches - seems to be a different Trait
 - Check in-game how the chaos infusion boon (chant) works with respect to rarity. Is is infusion or common/rare/epic?
 - Check in-game with pony:

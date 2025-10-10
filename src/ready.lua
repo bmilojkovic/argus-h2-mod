@@ -8,10 +8,10 @@
 --	values and functions later defined in `reload.lua`.
 
 function stringifyTable(someTable)
-	if type(someTable) == 'table' then
+   if type(someTable) == 'table' then
       local s = '{ '
-      for k,v in pairs(someTable) do
-         k = '"'..k..'"'
+      for k, v in pairs(someTable) do
+         k = '"' .. k .. '"'
          s = s .. k .. ' : ' .. stringifyTable(v) .. ','
       end
       return s .. '} '
@@ -20,17 +20,23 @@ function stringifyTable(someTable)
    end
 end
 
-game.OnControlPressed({'Gift', function()
-	return triggerGift()
-end})
+game.OnControlPressed({ 'Gift', function()
+   return triggerGift()
+end })
 
-modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
-	local newTrait = base(...)
-   game.thread(sendTwitchData)
-	return newTrait
-end)
-
-modutil.mod.Path.Wrap("EquipKeepsake", function(base, ...)
-   base(...)
-   game.thread(sendTwitchData)
-end)
+local twitchUpdateEvents = {
+   --"PickupWeaponKit",                   -- equip weapon in crossroads
+   --"UseFamiliar",                       -- equip familiar in crossroads
+   --"EquipKeepsake",
+   --"CloseMetaUpgradeCardScreen",        -- main arcana screen closed
+   --"CloseUpgradeMetaUpgradeCardScreen", -- insight arcana screen closed
+   --"CloseShrineUpgradeScreen",          -- close vow shrine
+   --"StartNewRun",                       -- exiting crossroads
+   "LeaveRoom" -- leave a room
+}
+for k, functionName in ipairs(twitchUpdateEvents) do
+   modutil.mod.Path.Wrap(functionName, function(base, ...)
+      base(...)
+      game.thread(sendTwitchData)
+   end)
+end

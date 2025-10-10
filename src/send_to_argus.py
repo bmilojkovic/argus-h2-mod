@@ -40,7 +40,7 @@ async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, ele
                 "arcanaData": arcana_data.strip()
             }
         })
-    sys.stdout.write("Response: " + str(response))
+    argus_log("Response: " + str(response))
 
 def read_data_from_stdin():
     boon_data = sys.stdin.readline()
