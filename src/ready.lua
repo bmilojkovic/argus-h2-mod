@@ -20,6 +20,28 @@ function stringifyTable(someTable)
    end
 end
 
+local function attemptArgusLogin()
+   local comm = ('python ' .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
+      .. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid)                      -- tell python where it is running
+      .. " --login"                                                                                   -- we are doing only login now
+      .. " >> " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_auth_out.txt 2>&1"))       -- redirect stdout of python to a file
+
+   local pyHandle, openErr = io.popen(comm, "r")
+
+   if pyHandle == nil then
+      rom.log.warning("Error in starting python script: " .. openErr)
+   end
+end
+
+local function initialSetup()
+   -- remove python log files on startup
+   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt"))
+   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_auth_out.txt"))
+
+   -- try to login with argus. if we have logged in previously this will do nothing
+   attemptArgusLogin()
+end
+
 game.OnControlPressed({ 'Gift', function()
    return triggerGift()
 end })
@@ -40,3 +62,5 @@ for k, functionName in ipairs(twitchUpdateEvents) do
       game.thread(sendTwitchData)
    end)
 end
+
+initialSetup()

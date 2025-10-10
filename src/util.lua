@@ -1,5 +1,19 @@
 ---@diagnostic disable: lowercase-global
 
+function removeFileIfExists(fileName)
+	local file = io.open(fileName, "r")
+	if file then
+		io.close(file) -- Close the file handle if it was successfully opened
+		-- File exists, proceed with deletion
+		local success, err = os.remove(fileName)
+		if success then
+			rom.log.warning("File '" .. fileName .. "' deleted successfully.")
+		else
+			rom.log.warning("Error deleting file '" .. fileName .. "': " .. err)
+		end
+	end
+end
+
 function listContains(list, item)
 	for _, value in ipairs(list) do
 		if value == item then

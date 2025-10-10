@@ -3,7 +3,6 @@
 - Security
   - Make the frontend resistant to any properties missing.
 - Make successful login screen have a link to the twitch extension.
-- Stop doing auth every time
 
 ## Need to test
 
@@ -46,5 +45,6 @@
 - Add hammer ranks
 - Use hammer frame where needed
 - Have the backend check mod version and decide weather it should forward the data to extension or not. We want to do this in case of a big game patch, and data is all wrong.
+- Have the backend throttle messages from mod if too many are coming in.
 - Consumables
 - Support for Echo
