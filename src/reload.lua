@@ -147,13 +147,13 @@ function sendTwitchData()
 			goto continue_loop
 		end
 		if isFamiliarTrait(currentTrait) and familiarString == "" then
-			--familiarString = currentTrait.Name
 			familiarString = buildFamiliarData(currentTrait)
 			goto continue_loop
 		end
 		if isKeepsakeTrait(currentTrait) or isHexTrait(currentTrait) or
 			isChaosCurse(currentTrait) or isExtraHadesBoon(currentTrait) or
-			isExtraIcarusTrait(currentTrait) or isExtraMedeaTrait(currentTrait) then
+			isExtraIcarusTrait(currentTrait) or isExtraMedeaTrait(currentTrait) or
+			isExtraCirceTrait(currentTrait) or isExtraAthenaTrait(currentTrait) then
 			extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end
@@ -163,7 +163,8 @@ function sendTwitchData()
 		end
 		if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or
 			isChaosBlessing(currentTrait) or isMainHadesBoon(currentTrait) or
-			isMainIcarusTrait(currentTrait) or isMainMedeaTrait(currentTrait) then
+			isMainIcarusTrait(currentTrait) or isMainMedeaTrait(currentTrait) or
+			isMainCirceTrait(currentTrait) or isMainAthenaTrait(currentTrait) then
 			boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
 			goto continue_loop
 		end

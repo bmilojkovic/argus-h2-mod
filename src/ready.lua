@@ -33,19 +33,6 @@ local function attemptArgusLogin()
    end
 end
 
-local function initialSetup()
-   -- remove python log files on startup
-   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt"))
-   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_auth_out.txt"))
-
-   -- try to login with argus. if we have logged in previously this will do nothing
-   attemptArgusLogin()
-end
-
-game.OnControlPressed({ 'Gift', function()
-   return triggerGift()
-end })
-
 local twitchUpdateEvents = {
    --"PickupWeaponKit",                   -- equip weapon in crossroads
    --"UseFamiliar",                       -- equip familiar in crossroads
@@ -54,12 +41,33 @@ local twitchUpdateEvents = {
    --"CloseUpgradeMetaUpgradeCardScreen", -- insight arcana screen closed
    --"CloseShrineUpgradeScreen",          -- close vow shrine
    --"StartNewRun",                       -- exiting crossroads
-   "LeaveRoom" -- leave a room
+   "LeaveRoom"
 }
-for k, functionName in ipairs(twitchUpdateEvents) do
-   modutil.mod.Path.Wrap(functionName, function(base, ...)
-      base(...)
+
+local function initialSetup()
+   -- remove python log files on startup
+   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt"))
+   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_auth_out.txt"))
+
+   -- try to login with argus. if we have logged in previously this will do nothing
+   attemptArgusLogin()
+
+   game.OnControlPressed({ 'Gift', function()
+      return triggerGift()
+   end })
+
+   -- set up our send functions
+   for k, functionName in ipairs(twitchUpdateEvents) do
+      modutil.mod.Path.Wrap(functionName, function(base, ...)
+         base(...)
+         game.thread(sendTwitchData)
+      end)
+   end
+
+   modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
+      returnValue = base(...)
       game.thread(sendTwitchData)
+      return returnValue
    end)
 end
 

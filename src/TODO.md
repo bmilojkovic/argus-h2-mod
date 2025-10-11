@@ -1,32 +1,28 @@
 ## Will do
 
-- Security
-  - Make the frontend resistant to any properties missing.
 - Make successful login screen have a link to the twitch extension.
 
 ## Need to test
 
-- Test generator for python script
+- Make a test generator for python script
 - Test Apollo legendary with torches - seems to be a different Trait
-- Check in-game how the chaos infusion boon (chant) works with respect to rarity. Is is infusion or common/rare/epic?
 - Check in-game with pony:
   - All gods (DONE)
   - Artemis (DONE)
   - Hades (DONE)
   - Arachne (DONE)
   - Medea (DONE)
-  - Circe
-  - Icarus
-  - Athena
-  - Dionysus
-  - Hermes
-  - Chaos
-  - Hammers
+  - Circe (DONE)
+  - Icarus (DONE)
+  - Athena (DONE)
+  - Dionysus (DONE)
+  - Hermes (DONE)
+  - Chaos (DONE)
+  - Hammers (DONE)
   - Weapons
-  - Familiars
   - Keepsakes
-  - Hexes
-  - Vows
+  - Hexes (DONE)
+  - Vows (DONE)
   - Arcana
   - Familiars and their levels
 - Make a benchmark for number of messages sent to twitch. Make sure it is below 100/min. Also, add a warning log if we get close.

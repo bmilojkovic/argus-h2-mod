@@ -105,3 +105,30 @@ end
 function isExtraMedeaTrait(trait)
 	return trait.Name ~= nil and listContains(extraMedeaTraits, trait.Name)
 end
+
+local mainCirceTraits = { "CirceSorceryDamageBoon", "RandomArcanaTrait",
+	"CirceShrinkTrait", "CirceEnlargeTrait", "HealAmplifyTrait",
+	"DoubleFamiliarTrait", "RemoveShrineTrait", "ArcanaRarityTrait" };
+local extraCirceTraits = { "ExPolymorphBoon" };
+
+function isMainCirceTrait(trait)
+	return trait.Name ~= nil and listContains(mainCirceTraits, trait.Name)
+end
+
+function isExtraCirceTrait(trait)
+	return trait.Name ~= nil and listContains(extraCirceTraits, trait.Name)
+end
+
+local mainAthenaTraits = { "DeathDefianceRefillBoon", "FocusLastStandBoon",
+	"ManaSpearBoon", "InvulnerabilityCastBoon",
+	"InvulnerabilityDashBoon" };
+local extraAthenaTraits = { "RetaliateInvulnerabilityBoon", "AthenaProjectileBoon",
+	"OlympianSpellCountBoon" };
+
+function isMainAthenaTrait(trait)
+	return trait.Name ~= nil and listContains(mainAthenaTraits, trait.Name)
+end
+
+function isExtraAthenaTrait(trait)
+	return trait.Name ~= nil and listContains(extraAthenaTraits, trait.Name)
+end
