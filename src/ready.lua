@@ -52,10 +52,6 @@ local function initialSetup()
    -- try to login with argus. if we have logged in previously this will do nothing
    attemptArgusLogin()
 
-   game.OnControlPressed({ 'Gift', function()
-      return triggerGift()
-   end })
-
    -- set up our send functions
    for k, functionName in ipairs(twitchUpdateEvents) do
       modutil.mod.Path.Wrap(functionName, function(base, ...)
@@ -63,12 +59,6 @@ local function initialSetup()
          game.thread(sendTwitchData)
       end)
    end
-
-   modutil.mod.Path.Wrap("AddTraitToHero", function(base, ...)
-      returnValue = base(...)
-      game.thread(sendTwitchData)
-      return returnValue
-   end)
 end
 
 initialSetup()

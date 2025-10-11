@@ -6,25 +6,7 @@
 
 - Make a test generator for python script
 - Test Apollo legendary with torches - seems to be a different Trait
-- Check in-game with pony:
-  - All gods (DONE)
-  - Artemis (DONE)
-  - Hades (DONE)
-  - Arachne (DONE)
-  - Medea (DONE)
-  - Circe (DONE)
-  - Icarus (DONE)
-  - Athena (DONE)
-  - Dionysus (DONE)
-  - Hermes (DONE)
-  - Chaos (DONE)
-  - Hammers (DONE)
-  - Weapons
-  - Keepsakes
-  - Hexes (DONE)
-  - Vows (DONE)
-  - Arcana
-  - Familiars and their levels
+- Test Dio keepsake - maybe it stays as a different keepsake in followup biomes.
 - Make a benchmark for number of messages sent to twitch. Make sure it is below 100/min. Also, add a warning log if we get close.
 - Check if perfect-level weapons work (they probably don't)
 - If you get the same Chaos blessing twice, is it two Traits?

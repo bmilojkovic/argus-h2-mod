@@ -88,11 +88,11 @@ local function buildArcanaData()
 end
 
 local familiarTraitMap = {
-	HealthFamiliar = { "HealthFamiliar", "FamiliarFrogResourceBonus", "FamiliarFrogDamage" },
-	CritFamiliar = { "CritFamiliar", "FamiliarRavenResourceBonus", "FamiliarRavenAttackDuration" },
-	LastStandFamiliar = { "LastStandFamiliar", "FamiliarCatResourceBonus", "FamiliarCatAttacks" },
-	DigFamiliar = { "DigFamiliar", "FamiliarHoundResourceBonus", "FamiliarHoundBarkDuration" },
-	DodgeFamiliar = { "DodgeFamiliar", "FamiliarPolecatResourceBonus", "FamiliarPolecatDamage" },
+	HealthFamiliar = { "HealthFamiliar", "FamiliarFrogResourceBonus" },
+	CritFamiliar = { "CritFamiliar", "FamiliarRavenResourceBonus" },
+	LastStandFamiliar = { "LastStandFamiliar", "FamiliarCatResourceBonus" },
+	DigFamiliar = { "DigFamiliar", "FamiliarHoundResourceBonus" },
+	DodgeFamiliar = { "DodgeFamiliar", "FamiliarPolecatResourceBonus" },
 }
 
 local function buildFamiliarData(familiarTrait)
@@ -105,16 +105,16 @@ local function buildFamiliarData(familiarTrait)
 	local familiarTraits = familiarTraitMap[familiarTrait.Name];
 	local traitCounter = 1
 
-	for ind, familiarTrait in pairs(familiarTraits) do
+	for ind, fam in pairs(familiarTraits) do
 		for k, heroTrait in pairs(game.CurrentRun.Hero.Traits) do
-			if heroTrait.Name == familiarTrait then
+			if heroTrait.Name ~= nil and heroTrait.StackNum ~= nil and heroTrait.Name == fam then
 				familiarString = familiarString .. " " .. heroTrait.StackNum .. dataSeparator .. heroTrait.Name
 				traitCounter = traitCounter + 1
 			end
 		end
 	end
 
-	if traitCounter ~= 4 then
+	if traitCounter ~= 3 then
 		return "INVALID"
 	end
 
@@ -227,10 +227,4 @@ function sendTwitchData()
 	else
 		rom.log.warning("Error in starting python script: " .. openErr)
 	end
-end
-
-function triggerGift()
-	rom.log.warning(stringifyTable(game.CurrentRun.Hero.Traits))
-	rom.log.warning("------")
-	--rom.log.warning(buildFamiliarData("HealthFamiliar"))
 end
