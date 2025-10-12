@@ -11,26 +11,29 @@ Sends data from your `Hades II` game to Twitch, displaying the following to your
 - Fear setup
 - Up to three boons pinned in the codex will be shown (with requirements) as targets for this run.
 
-See the full list [below](#full-argus-scope).
+Note that the Twitch overlay will not always update instantly. We send updatesonly when you exit a room during a run. There are no updates in the Crossroads or mid-fight.
+
+See the full list of data that we show to viewers [below](#full-argus-scope).
 
 ## Installation instructions
 
-- To install this mod, you need [r2modman](https://thunderstore.io/package/ebkr/r2modman/). This is because we publish through [Thunderstore](https://thunderstore.io/).
+- The mod has not been tested on Linux or Mac yet. We officially support only Windows for now.
+- To install this mod, you need [r2modman](https://thunderstore.io/package/ebkr/r2modman/), which is a mod manager. This is because we publish through [Thunderstore](https://thunderstore.io/) for our and your convenience.
 - Once you have `r2modman` installed, just find Argus in the list of `Hades II` mods and install it.
 
 ## Setting up after install and testing with Twitch
 
-You can follow the steps below and check if everything is working properly before going live.
+You can follow the steps below and check if everything is working properly before going live on Twitch.
 
-- Once the mod is installed, run the game with the mod active. During startup you will be prompted to log in to Twitch and give Argus permission to read your username. This process ensures that streamers can not be impersonated in our system.
-- During game startup, you will be asked to authenticate through Twitch. The login prompt **will appear in a browser window**. When this happens, `Hades II` might appear frozen. This is fine - the game does that when it loses focus. After you do the Twitch authentication, you can come back to the game.
-- The authentication needs to be done only once. If you failed to login and want to do it again, you can just restart the game or load a save - that is when the mod gets reloaded and will attempt the process if it hasn't succeeded yet.
+- Once the mod is installed, run the game with the mod active. You need to run the game from r2modman, and not from Steam. During startup you will be prompted to connect your Twitch account with Argus. The only thing we will ask for and use is permission to read your username. This process ensures that streamers can not be impersonated in our system.
+- During game startup, you will be asked to authenticate through Twitch for the connection process. The prompt **will appear in a browser window**. When this happens, `Hades II` might appear frozen. This is fine - the game does that when it loses focus. After the connection with Argus is established, you can come back to the game.
+- The connection step above needs to be done only once. If you failed to connect your account with Argus and want to try again, you can just restart the game or load a save - that is when the mod gets reloaded and will attempt the process if it hasn't succeeded yet.
 - The next step is to enable the Argus Twitch extension on your stream. Go to `Twitch → Creator Dashboard → Extensions → Discovery`, find it in the extension search and enable it. You do not need to configure anything on the Twitch extension for it to start working.
 
 With these steps done, you should be ready and set up. If you want to check that everything is working correctly, do the following:
 
-- Go to `Twitch → Creator Dashboard → Extensions → My Extensions` and open the Argus configuration panel. It should confirm that the login step you did previously was successful.
-- To preview the extension, go to your `Stream Manager` tab on Twitch and click on the Argus 👀 icon listed under your Quick Actions. A window will pop up that shows you what your viewers will see as an overlay on your stream. If you want to see things changing, just start a `Hades II` run and go through one room. The display on twitch updates whenever you leave a room while doing a run. Note that it will not update in the Crossroads.
+- Go to `Twitch → Creator Dashboard → Extensions → My Extensions` and open the Argus configuration panel. It should confirm that the connection step you did previously was successful.
+- To preview the extension, go to your `Stream Manager` tab on Twitch and click on the Argus 👀 icon listed under your `Quick Actions`. A window will pop up that shows you what your viewers will see as an overlay on your stream. If you want to see things changing, just start a `Hades II` run and go through one room. The display on twitch updates whenever you leave a room while doing a run. Note that it will not update in the Crossroads.
 
 ## What Argus doesn't see 🙈
 

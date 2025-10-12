@@ -1,5 +1,6 @@
 ## Will do
 
+- Write README for twitch and backend repositories.
 - Make successful login screen have a link to the twitch extension.
 
 ## Need to test

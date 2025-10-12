@@ -6,7 +6,7 @@ schemaVersion = "0.0.1"
 namespace = "CrazyPenguin"
 name = "Argus"
 versionNumber = "0.0.1"
-description = "Argus is a Hades II mod that supports the Argus Twitch extension. It will show your viewers various details about your run. May chat never ask you about your fear setup ever again."
+description = "[BETA] Argus is a Hades II mod that supports the Argus Twitch extension. It will show your viewers various details about your run. May chat never ask you about your fear setup ever again. 🎉"
 websiteUrl = "https://github.com/bmilojkovic/argus-h2-mod"
 containsNsfwContent = false
 
