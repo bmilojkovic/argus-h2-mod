@@ -32,6 +32,7 @@ async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, ele
     response = requests.post(
         argus_backend + "/run_info",
         json = {
+            "argusProtocolVersion": "1",
             "argusToken": argus_token,
             "runData": {
                 "boonData": boon_data.strip(),
@@ -42,7 +43,7 @@ async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, ele
                 "pinData" : pin_data.strip(),
                 "vowData": vow_data.strip(),
                 "arcanaData": arcana_data.strip()
-            }
+            },
         })
     argus_log("Response: " + str(response))
 

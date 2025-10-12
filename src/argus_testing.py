@@ -12,7 +12,7 @@ def get_test_data(which_test):
     if which_test == "test1":
         boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon"
         weapon_data = "Rare;;DaggerBlockAspect"
-        familiar_data = "LastStandFamiliar 2;;LastStandFamiliar 3;;FamiliarCatResourceBonus 4;;FamiliarCatAttacks"
+        familiar_data = "LastStandFamiliar 2;;LastStandFamiliar 3;;FamiliarCatResourceBonus"
         extra_data = "Epic;;ForceZeusBoonKeepsake Common;;SpellSummonTrait"
         elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
         pin_data = "RandomStatusBoon;;AresExCastBoon;;GoodStuffBoon"
@@ -30,7 +30,7 @@ def get_test_data(which_test):
     elif which_test == "pins":
         boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon"
         weapon_data = "Rare;;DaggerBlockAspect"
-        familiar_data = "LastStandFamiliar 2;;LastStandFamiliar 3;;FamiliarCatResourceBonus 4;;FamiliarCatAttacks"
+        familiar_data = "LastStandFamiliar 2;;LastStandFamiliar 3;;FamiliarCatResourceBonus"
         extra_data = "Epic;;ForceZeusBoonKeepsake Common;;SpellSummonTrait"
         elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
         pin_data = "LuckyBoon;;ElementalUnifiedBoon;;GoodStuffBoon"

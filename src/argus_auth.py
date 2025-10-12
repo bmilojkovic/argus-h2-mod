@@ -33,7 +33,7 @@ def do_argus_auth(config, config_file_path, argus_backend):
     webbrowser.open(target_url)
     retries = 60
     while retries > 0:
-        response = requests.post(argus_backend + "/get_argus_token", json = {"state": stateBytes}, timeout=60)
+        response = requests.post(argus_backend + "/get_argus_token", json = {"argusProtocolVersion": "1", "state": stateBytes}, timeout=60)
 
         argus_log("asked for argus token and got: " + response.text)
         if response.status_code == 200 and response.text != "FAIL":
@@ -47,7 +47,7 @@ def do_argus_auth(config, config_file_path, argus_backend):
     return "FAIL"
 
 def check_argus_token_ok(argus_token, argus_backend):
-    response = requests.get(argus_backend + "/check_argus_token", params={"argus_token" : argus_token})
+    response = requests.get(argus_backend + "/check_argus_token", params={"argusProtocolVersion": "1", "argus_token" : argus_token})
     argus_log("checking token " + argus_token + " and got response " + response.text)
     return response.status_code == 200 and response.text == "token_ok"
 

@@ -1,5 +1,18 @@
 ---@diagnostic disable: lowercase-global
 
+function stringifyTable(someTable)
+	if type(someTable) == 'table' then
+		local s = '{ '
+		for k, v in pairs(someTable) do
+			k = '"' .. k .. '"'
+			s = s .. k .. ' : ' .. stringifyTable(v) .. ','
+		end
+		return s .. '} '
+	else
+		return "\"" .. tostring(someTable) .. "\""
+	end
+end
+
 function removeFileIfExists(fileName)
 	local file = io.open(fileName, "r")
 	if file then

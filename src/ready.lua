@@ -7,19 +7,6 @@
 -- 	so you will most likely want to have it reference
 --	values and functions later defined in `reload.lua`.
 
-function stringifyTable(someTable)
-   if type(someTable) == 'table' then
-      local s = '{ '
-      for k, v in pairs(someTable) do
-         k = '"' .. k .. '"'
-         s = s .. k .. ' : ' .. stringifyTable(v) .. ','
-      end
-      return s .. '} '
-   else
-      return "\"" .. tostring(someTable) .. "\""
-   end
-end
-
 local function attemptArgusLogin()
    local comm = ('python ' .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
       .. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid)                      -- tell python where it is running
