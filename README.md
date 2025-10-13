@@ -2,6 +2,8 @@
 
 Argus is a `Hades II` mod that supports the Argus Twitch extension. It will show your viewers various details about your run. May chat never ask you about your fear setup ever again. 🎉
 
+![Argus Screenshot](argus-screenshot.png)
+
 ## Features
 
 Sends data from your `Hades II` game to Twitch, displaying the following to your viewers:
@@ -88,6 +90,10 @@ As a rule-of-thumb: if the information would be contained in a wiki page, we pro
   - Shown like in the Oath of the Unseen with full descriptions.
 - Panel 4: **Pinned boons**
   - Up to three boons pinned in the codex will be shown here as targets for the run. If these boons have requirements, they will be shown as well.
+
+## If you are a developer
+
+More details can be found in the [TECH_README](TECH_README.md).
 
 ## Contact
 
