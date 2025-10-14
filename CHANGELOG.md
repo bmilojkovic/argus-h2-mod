@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Small stabilization fixes.
+- Reduced logging message levels to have less spam. Lots of warnings are now info.
+
 ## [0.0.1] - 2025-10-13
 
 ### Added

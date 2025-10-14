@@ -53,11 +53,11 @@ function sendTwitchData()
     end
 
     if weaponString == "" then
-        rom.log.warning("Didn't find weapon trait. Skipping cycle.")
+        rom.log.info("Didn't find weapon trait. Skipping cycle.")
         return
     end
     if familiarString == "INVALID" then
-        rom.log.warning("Partial familiar data. Skipping cycle.")
+        rom.log.info("Partial familiar data. Skipping cycle.")
         return
     end
     elementsString = buildElementalData()
@@ -65,28 +65,28 @@ function sendTwitchData()
     vowString = buildVowData()
     arcanaString = buildArcanaData()
     if boonList ~= "" then
-        rom.log.warning("Boon list: " .. boonList)
+        rom.log.info("Boon list: " .. boonList)
     end
     if weaponString ~= "" then
-        rom.log.warning("Weapon: " .. weaponString)
+        rom.log.info("Weapon: " .. weaponString)
     end
     if familiarString ~= "" then
-        rom.log.warning("Familiar: " .. familiarString)
+        rom.log.info("Familiar: " .. familiarString)
     end
     if extraString ~= "" then
-        rom.log.warning("Extra: " .. extraString)
+        rom.log.info("Extra: " .. extraString)
     end
     if elementsString ~= "" then
-        rom.log.warning("Elements: " .. elementsString)
+        rom.log.info("Elements: " .. elementsString)
     end
     if pinsString ~= "" then
-        rom.log.warning("Pins: " .. pinsString)
+        rom.log.info("Pins: " .. pinsString)
     end
     if vowString ~= "" then
-        rom.log.warning("Vows: " .. vowString)
+        rom.log.info("Vows: " .. vowString)
     end
     if arcanaString ~= "" then
-        rom.log.warning("Arcana: " .. arcanaString)
+        rom.log.info("Arcana: " .. arcanaString)
     end
     local comm = ('python ' .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
         .. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid)                     -- tell python where it is running

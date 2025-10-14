@@ -1,6 +1,7 @@
 ## Will do
 
 - Write README for twitch and backend repositories.
+- Add python as a dependency in the main mod DOCs
 - Make successful login screen have a link to the twitch extension.
 
 ## Need to test
