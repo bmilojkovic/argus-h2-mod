@@ -20,7 +20,7 @@ function removeFileIfExists(fileName)
 		-- File exists, proceed with deletion
 		local success, err = os.remove(fileName)
 		if success then
-			rom.log.info("File '" .. fileName .. "' deleted successfully.")
+			rom.log.warning("File '" .. fileName .. "' deleted successfully.")
 		else
 			rom.log.warning("Error deleting file '" .. fileName .. "': " .. err)
 		end

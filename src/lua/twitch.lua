@@ -53,11 +53,11 @@ function sendTwitchData()
     end
 
     if weaponString == "" then
-        rom.log.info("Didn't find weapon trait. Skipping cycle.")
+        rom.log.warning("Didn't find weapon trait. Skipping cycle.")
         return
     end
     if familiarString == "INVALID" then
-        rom.log.info("Partial familiar data. Skipping cycle.")
+        rom.log.warning("Partial familiar data. Skipping cycle.")
         return
     end
     elementsString = buildElementalData()
@@ -65,32 +65,33 @@ function sendTwitchData()
     vowString = buildVowData()
     arcanaString = buildArcanaData()
     if boonList ~= "" then
-        rom.log.info("Boon list: " .. boonList)
+        rom.log.warning("Boon list: " .. boonList)
     end
     if weaponString ~= "" then
-        rom.log.info("Weapon: " .. weaponString)
+        rom.log.warning("Weapon: " .. weaponString)
     end
     if familiarString ~= "" then
-        rom.log.info("Familiar: " .. familiarString)
+        rom.log.warning("Familiar: " .. familiarString)
     end
     if extraString ~= "" then
-        rom.log.info("Extra: " .. extraString)
+        rom.log.warning("Extra: " .. extraString)
     end
     if elementsString ~= "" then
-        rom.log.info("Elements: " .. elementsString)
+        rom.log.warning("Elements: " .. elementsString)
     end
     if pinsString ~= "" then
-        rom.log.info("Pins: " .. pinsString)
+        rom.log.warning("Pins: " .. pinsString)
     end
     if vowString ~= "" then
-        rom.log.info("Vows: " .. vowString)
+        rom.log.warning("Vows: " .. vowString)
     end
     if arcanaString ~= "" then
-        rom.log.info("Arcana: " .. arcanaString)
+        rom.log.warning("Arcana: " .. arcanaString)
     end
-    local comm = ('python ' .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
-        .. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid)                     -- tell python where it is running
-        .. " >> " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt 2>&1"))           -- redirect stdout of python to a file
+    local pythonPath = rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'py')
+    local comm = ('python ' .. rom.path.combine(pythonPath, 'send_to_argus.py') -- run print script
+        .. " --pluginpath " .. pythonPath                                       -- tell python where it is running
+        .. " >> " .. rom.path.combine(pythonPath, "py_out.txt 2>&1"))           -- redirect stdout of python to a file
 
     local pyHandle, openErr = io.popen(comm, "w")
 

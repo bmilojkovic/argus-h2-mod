@@ -43,17 +43,17 @@ local function on_ready()
 	-- what to do when we are ready, but not re-do on reload.
 	if config.enabled == false then return end
 
-	import 'util.lua'
-	import 'parsing.lua'
-	import 'twitch.lua'
-	import 'ready.lua'
+	import 'lua/util.lua'
+	import 'lua/parsing.lua'
+	import 'lua/twitch.lua'
+	import 'lua/ready.lua'
 end
 
 local function on_reload()
 	-- what to do when we are ready, but also again on every reload.
 	-- only do things that are safe to run over and over.
 
-	import 'reload.lua'
+	import 'lua/reload.lua'
 end
 
 -- this allows us to limit certain functions to not be reloaded.

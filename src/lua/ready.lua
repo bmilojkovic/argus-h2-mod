@@ -8,10 +8,11 @@
 --	values and functions later defined in `reload.lua`.
 
 local function attemptArgusLogin()
-   local comm = ('python ' .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'send_to_argus.py') -- run print script
-      .. " --pluginpath " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid)                      -- tell python where it is running
-      .. " --login"                                                                                   -- we are doing only login now
-      .. " >> " .. rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_auth_out.txt 2>&1"))       -- redirect stdout of python to a file
+   local pythonPath = rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'py')
+   local comm = ('python ' .. rom.path.combine(pythonPath, 'send_to_argus.py') -- run print script
+      .. " --pluginpath " .. pythonPath                                        -- tell python where it is running
+      .. " --login"                                                            -- we are doing only login now
+      .. " >> " .. rom.path.combine(pythonPath, "py_auth_out.txt 2>&1"))       -- redirect stdout of python to a file
 
    local pyHandle, openErr = io.popen(comm, "r")
 

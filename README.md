@@ -2,7 +2,7 @@
 
 Argus is a `Hades II` mod that supports the Argus Twitch extension. It will show your viewers various details about your run. May chat never ask you about your fear setup ever again. 🎉
 
-![Argus Screenshot](argus-screenshot.png)
+![Argus Screenshot](https://raw.githubusercontent.com/bmilojkovic/argus-h2-mod/refs/heads/main/argus-screenshot.png)
 
 ## Features
 
@@ -17,9 +17,25 @@ Note that the Twitch overlay will not always update instantly. We send updateson
 
 See the full list of data that we show to viewers [below](#full-argus-scope).
 
+## Dependencies
+
+Argus uses Python in the background to communicate with our backend service and ultimately Twitch. This means that you must have the following installed on your machine for Argus to do anything:
+
+- Python >= 3.13.7 ([can be downloaded here](https://www.python.org/downloads/))
+- The `requests` library for Python. You can install it by opening your favorite terminal and doing:
+
+```
+pip install requests
+```
+
+Without these dependencies Argus will just not do anything. It will not cause a crash or make other problems, but it will also not report the issue (for now).
+
+### Platforms
+
+The mod has not been tested on Linux or Mac yet. We officially support only Windows for now.
+
 ## Installation instructions
 
-- The mod has not been tested on Linux or Mac yet. We officially support only Windows for now.
 - To install this mod, you need [r2modman](https://thunderstore.io/package/ebkr/r2modman/), which is a mod manager. This is because we publish through [Thunderstore](https://thunderstore.io/) for our and your convenience.
 - Once you have `r2modman` installed, just find Argus in the list of `Hades II` mods and install it.
 
@@ -93,7 +109,7 @@ As a rule-of-thumb: if the information would be contained in a wiki page, we pro
 
 ## If you are a developer
 
-More details can be found in the [TECH_README](TECH_README.md).
+More details can be found in the [TECH_README](doc/TECH_README.md).
 
 ## Contact
 
