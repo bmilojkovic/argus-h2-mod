@@ -1,17 +1,16 @@
 ## Will do
 
 - Write README for twitch and backend repositories.
-- Add python as a dependency in the main mod DOCs
 - Make successful login screen have a link to the twitch extension.
 
 ## Need to test
 
-- Make a test generator for python script
+- Improve the test generator:
+  - Add arcana and vows
+  - Make all generators have better strategies
 - Test Apollo legendary with torches - seems to be a different Trait
 - Test Dio keepsake - maybe it stays as a different keepsake in followup biomes.
 - Make a benchmark for number of messages sent to twitch. Make sure it is below 100/min. Also, add a warning log if we get close.
-- Check if perfect-level weapons work (they probably don't)
-- If you get the same Chaos blessing twice, is it two Traits?
 - Check Linux
 
 ## For later
