@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Small stabilization fixes.
 - Reduced logging message levels to have less spam. Lots of warnings are now info.
+- Updated README files.
+- Updated directory structure.
 
 ## [0.0.1] - 2025-10-13
 
