@@ -15,10 +15,12 @@
 
 ## For later
 
+- Change frontend code so that it doesn't keep historic messages forever.
 - To get actual values: look at TraitData and TraitLogic. Specifically ExtractValues and SetTraitTextData.
 - Some specific keepsake details
   - Add evil eye detail (who killed you)
   - Add blackened fleece detail (current total damage)
+- Artificer remaining use count
 - Crimson dress current damage bonus.
 - Add icons and colors to description text (currently we are limited to bold only)
 - Add hammer ranks

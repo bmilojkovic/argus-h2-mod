@@ -13,7 +13,7 @@ Sends data from your `Hades II` game to Twitch, displaying the following to your
 - Fear setup
 - Up to three boons pinned in the codex will be shown (with requirements) as targets for this run.
 
-Note that the Twitch overlay will not always update instantly. We send updatesonly when you exit a room during a run. There are no updates in the Crossroads or mid-fight.
+Note that the Twitch overlay will not always update instantly. We send updates only when you exit a room during a run. There are no updates in the Crossroads or mid-fight.
 
 See the full list of data that we show to viewers [below](#full-argus-scope).
 

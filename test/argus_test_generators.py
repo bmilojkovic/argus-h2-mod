@@ -75,3 +75,33 @@ def pin_data_generator(ui_mappings, generator_params):
     pin_string = pin_string[:-len(DATA_SEPARATOR)]
 
     return pin_string
+
+def vow_data_generator(ui_mappings, generator_params):
+    include = percentile_boolean(int(generator_params["include"]))
+    if not include:
+        return ""
+
+    vow_string = ""
+
+    for vow_name in ui_mappings["vows"].keys():
+        if random.randint(1, 2) == 1: # include this vow
+            max_level = len(ui_mappings["vows"][vow_name]["fears"])-1
+            vow_level = random.randint(1, max_level)
+            vow_string = vow_string + str(vow_level) + DATA_SEPARATOR + vow_name + " "
+
+    return vow_string
+
+def arcana_data_generator(ui_mappings, generator_params):
+    include = percentile_boolean(int(generator_params["include"]))
+    if not include:
+        return ""
+
+    arcana_string = ""
+
+    for arcana_name in ui_mappings["arcana"].keys():
+        if random.randint(1, 2) == 1: # include this card
+            max_level = 4
+            arcana_level = random.randint(1, max_level)
+            arcana_string = arcana_string + str(arcana_level) + DATA_SEPARATOR + arcana_name + " "
+
+    return arcana_string
