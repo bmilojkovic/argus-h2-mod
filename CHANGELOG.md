@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Generated tests for backend and frontend. There is less need to do actual runs for testing now.
+- Modified the code to start using the plugins_data folder. Now Argus logins should persist through mod updates.
+- Tiny bugfixes.
 
 ## [0.0.2] - 2025-10-17
 
