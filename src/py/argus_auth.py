@@ -12,7 +12,10 @@ from argus_util import argus_log
 extension_id = "sl19e3aebmadlewzt7mxfv3j3llwwv"
 
 def get_config_file_path(pluginpath):
-    return pluginpath + os.sep + "argus_token.ini"
+    cache_path = pluginpath + os.sep + "cache"
+    if not os.path.exists(cache_path):
+        os.makedirs(cache_path)
+    return cache_path + os.sep + "argus_token.ini"
 
 def do_argus_auth(config, config_file_path, argus_backend):
     base_url = "https://id.twitch.tv/oauth2/authorize"

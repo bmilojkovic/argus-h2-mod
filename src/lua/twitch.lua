@@ -88,10 +88,11 @@ function sendTwitchData()
     if arcanaString ~= "" then
         rom.log.warning("Arcana: " .. arcanaString)
     end
+    local pluginsDataPath = rom.path.combine(rom.paths.plugins_data(), _PLUGIN.guid)
     local pythonPath = rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'py')
     local comm = ('python ' .. rom.path.combine(pythonPath, 'send_to_argus.py') -- run print script
-        .. " --pluginpath " .. pythonPath                                       -- tell python where it is running
-        .. " >> " .. rom.path.combine(pythonPath, "py_out.txt 2>&1"))           -- redirect stdout of python to a file
+        .. " --pluginpath " .. pluginsDataPath                                  -- tell python where to write data files
+        .. " >> " .. rom.path.combine(pluginsDataPath, "py_out.txt 2>&1"))      -- redirect stdout of python to a file
 
     local pyHandle, openErr = io.popen(comm, "w")
 

@@ -14,15 +14,24 @@ function stringifyTable(someTable)
 end
 
 function removeFileIfExists(fileName)
-	local file = io.open(fileName, "r")
-	if file then
-		io.close(file) -- Close the file handle if it was successfully opened
+	if rom.path.exists(fileName) then
 		-- File exists, proceed with deletion
 		local success, err = os.remove(fileName)
 		if success then
 			rom.log.warning("File '" .. fileName .. "' deleted successfully.")
 		else
 			rom.log.warning("Error deleting file '" .. fileName .. "': " .. err)
+		end
+	end
+end
+
+function makePluginsDataIfNeeded()
+	pluginsDataPath = rom.path.combine(rom.paths.plugins_data(), _PLUGIN.guid)
+	if not rom.path.exists(pluginsDataPath) then
+		rom.path.create_directory(pluginsDataPath)
+		cacheDirPath = rom.path.combine(pluginsDataPath, "cache")
+		if not rom.path.exists(cacheDirPath) then
+			rom.path.create_directory(cacheDirPath)
 		end
 	end
 end

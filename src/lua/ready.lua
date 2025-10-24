@@ -8,11 +8,12 @@
 --	values and functions later defined in `reload.lua`.
 
 local function attemptArgusLogin()
+   local pluginsDataPath = rom.path.combine(rom.paths.plugins_data(), _PLUGIN.guid)
    local pythonPath = rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'py')
    local comm = ('python ' .. rom.path.combine(pythonPath, 'send_to_argus.py') -- run print script
-      .. " --pluginpath " .. pythonPath                                        -- tell python where it is running
+      .. " --pluginpath " .. pluginsDataPath                                   -- tell python where to store data
       .. " --login"                                                            -- we are doing only login now
-      .. " >> " .. rom.path.combine(pythonPath, "py_auth_out.txt 2>&1"))       -- redirect stdout of python to a file
+      .. " >> " .. rom.path.combine(pluginsDataPath, "py_auth_out.txt 2>&1"))  -- redirect stdout of python to a file
 
    local pyHandle, openErr = io.popen(comm, "r")
 
@@ -34,8 +35,9 @@ local twitchUpdateEvents = {
 
 local function initialSetup()
    -- remove python log files on startup
-   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_out.txt"))
-   removeFileIfExists(rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, "py_auth_out.txt"))
+   removeFileIfExists(rom.path.combine(rom.paths.plugins_data(), _PLUGIN.guid, "py_out.txt"))
+   removeFileIfExists(rom.path.combine(rom.paths.plugins_data(), _PLUGIN.guid, "py_auth_out.txt"))
+   makePluginsDataIfNeeded()
 
    -- try to login with argus. if we have logged in previously this will do nothing
    attemptArgusLogin()
