@@ -67,26 +67,28 @@ function sendTwitchData()
     if boonList ~= "" then
         rom.log.warning("Boon list: " .. boonList)
     end
-    if weaponString ~= "" then
-        rom.log.warning("Weapon: " .. weaponString)
-    end
-    if familiarString ~= "" then
-        rom.log.warning("Familiar: " .. familiarString)
-    end
-    if extraString ~= "" then
-        rom.log.warning("Extra: " .. extraString)
-    end
-    if elementsString ~= "" then
-        rom.log.warning("Elements: " .. elementsString)
-    end
-    if pinsString ~= "" then
-        rom.log.warning("Pins: " .. pinsString)
-    end
-    if vowString ~= "" then
-        rom.log.warning("Vows: " .. vowString)
-    end
-    if arcanaString ~= "" then
-        rom.log.warning("Arcana: " .. arcanaString)
+    if config.argus_debug then
+        if weaponString ~= "" then
+            rom.log.warning("Weapon: " .. weaponString)
+        end
+        if familiarString ~= "" then
+            rom.log.warning("Familiar: " .. familiarString)
+        end
+        if extraString ~= "" then
+            rom.log.warning("Extra: " .. extraString)
+        end
+        if elementsString ~= "" then
+            rom.log.warning("Elements: " .. elementsString)
+        end
+        if pinsString ~= "" then
+            rom.log.warning("Pins: " .. pinsString)
+        end
+        if vowString ~= "" then
+            rom.log.warning("Vows: " .. vowString)
+        end
+        if arcanaString ~= "" then
+            rom.log.warning("Arcana: " .. arcanaString)
+        end
     end
     local pluginsDataPath = rom.path.combine(rom.paths.plugins_data(), _PLUGIN.guid)
     local pythonPath = rom.path.combine(rom.paths.plugins(), _PLUGIN.guid, 'py')

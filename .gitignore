@@ -1,5 +1,5 @@
 # Thunderstore CLI build output
 build/
-test/argus_token.ini
+test/cache/
 src/py/__pycache__
 test/__pycache__

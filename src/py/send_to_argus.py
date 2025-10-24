@@ -5,14 +5,13 @@ import sys
 import argparse
 
 import argus_auth
-import argus_testing
 from argus_util import argus_log
 
 #argus_backend = "http://localhost:3000"
 argus_backend = "https://argus-h2-backend.fly.dev"
 
-async def send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data):
-    argus_token = argus_auth.get_argus_token(args["pluginpath"], argus_backend)
+async def send_to_backend(pluginpath, boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data):
+    argus_token = argus_auth.get_argus_token(pluginpath, argus_backend)
     
     if argus_token == "FAIL":
         argus_log("Failed to read token from config file. :(")
@@ -71,7 +70,7 @@ def main():
             argus_log("Successful login with token: " + res)
     else:
         boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data = read_data_from_stdin()
-        asyncio.run(send_to_backend(boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data))
+        asyncio.run(send_to_backend(args["pluginpath"], boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data))
 
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser(description="Send Argus data to the Argus backend.")
