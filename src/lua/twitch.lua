@@ -64,10 +64,11 @@ function sendTwitchData()
     pinsString = buildPinData()
     vowString = buildVowData()
     arcanaString = buildArcanaData()
-    if boonList ~= "" then
-        rom.log.warning("Boon list: " .. boonList)
-    end
+
     if config.argus_debug then
+        if boonList ~= "" then
+            rom.log.warning("Boon list: " .. boonList)
+        end
         if weaponString ~= "" then
             rom.log.warning("Weapon: " .. weaponString)
         end

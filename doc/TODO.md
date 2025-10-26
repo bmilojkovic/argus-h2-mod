@@ -1,13 +1,8 @@
 ## Will do
 
 - Anvil Ring (Hephaestus): increased damage for Common Rarity
-- Controlled Burn (Hestia): increased bonus from Poms of Power
 - Sword Ring (Ares): increased damage
 - Carnal Pleasure (Ares x Aphrodite): increased effectiveness
-- Shadow Pounce (Artemis): increased effectiveness
-- Life Tax (Hades): increased effectiveness; restorative effect is no longer reduced by Vow of Scars (Oath)
-- Last Gasp (Hades): increased effectiveness
-- Elephant Rockets (Coat - Shiva): increased damage
 - Chakra Collider (Coat - Shiva): increased damage
 
 - Make successful login screen have a link to the twitch extension.
