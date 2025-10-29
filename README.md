@@ -43,15 +43,13 @@ The mod has not been tested on Linux or Mac yet. We officially support only Wind
 
 You can follow the steps below and check if everything is working properly before going live on Twitch.
 
-- Once the mod is installed, run the game with the mod active. You need to run the game from r2modman, and not from Steam. During startup you will be prompted to connect your Twitch account with Argus. The only thing we will ask for and use is permission to read your username. This process ensures that streamers can not be impersonated in our system.
-- During game startup, you will be asked to authenticate through Twitch for the connection process. The prompt **will appear in a browser window**. When this happens, `Hades II` might appear frozen. This is fine - the game does that when it loses focus. After the connection with Argus is established, you can come back to the game.
+- Once the mod is installed, run the game with the mod active. You need to run the game from r2modman, and not from Steam. During startup you will be prompted to connect your Twitch account with Argus. Argus should ask for the minimum information about your account (email, username, profile picture, ...). We actually need only your username. This process ensures that streamers can not be impersonated in our system.
+- The prompt **will appear in a browser window**. When this happens, `Hades II` might appear frozen. This is fine - the game does that when it loses focus. After the connection with Argus is established, you can come back to the game.
 - The connection step above needs to be done only once. If you failed to connect your account with Argus and want to try again, you can just restart the game or load a save - that is when the mod gets reloaded and will attempt the process if it hasn't succeeded yet.
-- The next step is to enable the Argus Twitch extension on your stream. Go to `Twitch → Creator Dashboard → Extensions → Discovery`, find it in the extension search and enable it. You do not need to configure anything on the Twitch extension for it to start working.
+- The next step is to enable the [Argus Twitch extension](https://dashboard.twitch.tv/extensions/sl19e3aebmadlewzt7mxfv3j3llwwv) on your stream. If the link doesn't work, go to `Twitch → Creator Dashboard → Extensions → Discovery`, and find it in the extension search. You do not need to configure anything on the Twitch extension for it to start working. The extension configuration page should confirm that the connection step you did previously was successful.
+- To preview the extension, go to your `Stream Manager` tab on Twitch and click on the `👀` icon listed under your `Quick Actions`. A window will pop up that shows you what your viewers will see as an overlay on your stream. If you want to see things changing, just start a `Hades II` run and go through one room. The display on Twitch updates whenever you leave a room while doing a run. Note that it will not update in the Crossroads.
 
-With these steps done, you should be ready and set up. If you want to check that everything is working correctly, do the following:
-
-- Go to `Twitch → Creator Dashboard → Extensions → My Extensions` and open the Argus configuration panel. It should confirm that the connection step you did previously was successful.
-- To preview the extension, go to your `Stream Manager` tab on Twitch and click on the Argus 👀 icon listed under your `Quick Actions`. A window will pop up that shows you what your viewers will see as an overlay on your stream. If you want to see things changing, just start a `Hades II` run and go through one room. The display on twitch updates whenever you leave a room while doing a run. Note that it will not update in the Crossroads.
+**NOTE:** if you ever need to connect a different Twitch account, go to your r2modman profile folder (found under `Settings → Browse Profile Folder`) and then navigate to: `ReturnOfModding\plugins_data\CrazyPenguin-Argus\cache` and remove the `argus_token.ini` file. This will cause a Twitch connection prompt to be shown on your next game start or load of a save.
 
 ## What Argus doesn't see 🙈
 

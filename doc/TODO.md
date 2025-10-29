@@ -19,6 +19,11 @@
 
 ## For later
 
+- Frontend bugfixes:
+  - Aspect of Circe and Aspect of Momus have swapped icons
+  - Heroic Keepsakes don't have a frame image
+  - Hestia icon Snuffed Candle needs an update
+  - Change config page to just reference the main mod README instead of giving instructions
 - Change frontend code so that it doesn't keep historic messages forever.
 - To get actual values: look at TraitData and TraitLogic. Specifically ExtractValues and SetTraitTextData.
 - Some specific keepsake details
