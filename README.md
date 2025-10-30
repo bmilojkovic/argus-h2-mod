@@ -24,7 +24,7 @@ See the full list of data that we show to viewers [below](#full-argus-scope).
 Argus uses Python in the background to communicate with our backend service and ultimately Twitch. This means that you must have the following installed on your machine for Argus to do anything:
 
 - Python >= 3.13.7 ([can be downloaded here](https://www.python.org/downloads/))
-- The `requests` library for Python. You can install it by opening a terminal (eg. PowerShell) and doing:
+- The `requests` library for Python. You can install it by opening a terminal (eg. `PowerShell` on Windows) and doing:
 
 ```
 pip install requests
