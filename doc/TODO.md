@@ -12,6 +12,7 @@
 - Improve the test generator:
   - Add arcana and vows
   - Make all generators have better strategies
+- Arcana cards being rarified by Circe seem to not register
 - Test Apollo legendary with torches - seems to be a different Trait
 - Test Dio keepsake - maybe it stays as a different keepsake in followup biomes.
 - Make a benchmark for number of messages sent to twitch. Make sure it is below 100/min. Also, add a warning log if we get close.
@@ -25,6 +26,7 @@
   - Hestia icon Snuffed Candle needs an update
   - Change config page to just reference the main mod README instead of giving instructions
 - Change frontend code so that it doesn't keep historic messages forever.
+- Add names of levels (Common / Rare / etc) to the UI. Same for pet levels.
 - To get actual values: look at TraitData and TraitLogic. Specifically ExtractValues and SetTraitTextData.
 - Some specific keepsake details
   - Add evil eye detail (who killed you)

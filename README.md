@@ -17,12 +17,14 @@ Note that the Twitch overlay will not always update instantly. We send updates o
 
 See the full list of data that we show to viewers [below](#full-argus-scope).
 
+# Installation instructions
+
 ## Dependencies
 
 Argus uses Python in the background to communicate with our backend service and ultimately Twitch. This means that you must have the following installed on your machine for Argus to do anything:
 
 - Python >= 3.13.7 ([can be downloaded here](https://www.python.org/downloads/))
-- The `requests` library for Python. You can install it by opening your favorite terminal and doing:
+- The `requests` library for Python. You can install it by opening a terminal (eg. PowerShell) and doing:
 
 ```
 pip install requests
@@ -30,16 +32,12 @@ pip install requests
 
 Without these dependencies Argus will just not do anything. It will not cause a crash or make other problems, but it will also not report the issue (for now).
 
-### Platforms
-
-The mod has not been tested on Linux or Mac yet. We officially support only Windows for now.
-
-## Installation instructions
+## Adding the mod
 
 - To install this mod, you need [r2modman](https://thunderstore.io/package/ebkr/r2modman/), which is a mod manager. This is because we publish through [Thunderstore](https://thunderstore.io/) for our and your convenience.
 - Once you have `r2modman` installed, just find Argus in the list of `Hades II` mods and install it.
 
-## Setting up after install and testing with Twitch
+# Setting up after install and testing with Twitch
 
 You can follow the steps below and check if everything is working properly before going live on Twitch.
 
@@ -51,7 +49,7 @@ You can follow the steps below and check if everything is working properly befor
 
 **NOTE:** if you ever need to connect a different Twitch account, go to your r2modman profile folder (found under `Settings → Browse Profile Folder`) and then navigate to: `ReturnOfModding\plugins_data\CrazyPenguin-Argus\cache` and remove the `argus_token.ini` file. This will cause a Twitch connection prompt to be shown on your next game start or load of a save.
 
-## What Argus doesn't see 🙈
+# What Argus doesn't see 🙈
 
 Some notable things are still invisible to Argus and will hopefully be cleared up in the future. Here is a list of several items we assume you expect to have, but we do not support (yet):
 
@@ -67,7 +65,7 @@ Some notable things are still invisible to Argus and will hopefully be cleared u
 
 We pray to Hera that Argus gains more insight in the near future and with it the ability to see all of these spicy details, and more. 🙏
 
-## Full Argus scope
+# Full Argus scope
 
 As a rule-of-thumb: if the information would be contained in a wiki page, we probably have it. Here is a comprehensive list of things currently observable by Argus:
 
@@ -105,7 +103,7 @@ As a rule-of-thumb: if the information would be contained in a wiki page, we pro
 - Panel 4: **Pinned boons**
   - Up to three boons pinned in the codex will be shown here as targets for the run. If these boons have requirements, they will be shown as well.
 
-## If you are a developer
+# If you are a developer
 
 More details can be found in the [TECH_README](doc/TECH_README.md).
 
