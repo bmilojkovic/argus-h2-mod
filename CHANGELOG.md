@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-10-30
+
 ### Changed
 
 - Updated documentation to make the installation more smooth.
@@ -70,7 +72,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Panel 3: Vows of Night
 - Panel 4: Pinned boons. Up to three boons pinned in the codex will be shown here as targets for this run. If these boons have requirements, they will be shown as well.
 
-[unreleased]: https://github.com/bmilojkovic/argus-h2-mod/compare/1.0.0...HEAD
+[unreleased]: https://github.com/bmilojkovic/argus-h2-mod/compare/1.0.1...HEAD
+[1.0.1]: https://github.com/bmilojkovic/argus-h2-mod/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/bmilojkovic/argus-h2-mod/compare/0.0.6...1.0.0
 [0.0.6]: https://github.com/bmilojkovic/argus-h2-mod/compare/0.0.5...0.0.6
 [0.0.5]: https://github.com/bmilojkovic/argus-h2-mod/compare/0.0.4...0.0.5
