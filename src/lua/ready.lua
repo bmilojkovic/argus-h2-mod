@@ -52,3 +52,7 @@ local function initialSetup()
 end
 
 initialSetup()
+
+game.OnControlPressed({ 'Gift', function()
+   printHeroTraits()
+end })

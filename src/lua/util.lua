@@ -154,3 +154,32 @@ end
 function isExtraAthenaTrait(trait)
 	return trait.Name ~= nil and listContains(extraAthenaTraits, trait.Name)
 end
+
+local arcanaTraits = {
+	"ChannelSlowMetaUpgrade", "DoorHealMetaUpgrade", "LowManaDamageMetaupgrade", "CastDamageMetaUpgrade",
+	"SorceryRegenMetaUpgrade", "InsideCastBuffMetaUpgrade", "HealthManaBonusMetaUpgrade", "DodgeBonusMetaUpgrade",
+	"ManaOverTimeMetaUpgrade", "MagicCritMetaUpgrade", "SprintShieldMetaUpgrade", "LastStandSlowTimeMetaUpgrade",
+	"ChamberHealthMetaUpgrade", "EffectVulnerabilityMetaUpgrade", "BossShieldMetaUpgrade", "DoorRerollMetaUpgrade",
+	"StartingGoldMetaUpgrade", "MetaToRunMetaUpgrade", "RarityBoostMetaUpgrade", "DuoRarityBoostMetaUpgrade",
+	"RerollTradeOffMetaUpgrade", "PanelRerollMetaUpgrade", "LowHealthBuffMetaUpgrade", "EpicRarityBoostMetaUpgrade",
+	"BossProgressionMetaUpgrade"
+}
+
+local arcanaRarities = {
+	Common = "1",
+	Rare = "2",
+	Epic = "3",
+	Heroic = "4"
+}
+
+function arcanaLevelFromRarity(trait)
+	if trait ~= nil and arcanaRarities[trait] ~= nil then
+		return arcanaRarities[trait]
+	end
+
+	return "1"
+end
+
+function isArcanaTrait(trait)
+	return trait.Name ~= nil and listContains(arcanaTraits, trait.Name)
+end

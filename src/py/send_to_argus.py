@@ -8,7 +8,8 @@ import argus_auth
 from argus_util import argus_log
 
 #argus_backend = "http://localhost:3000"
-argus_backend = "https://argus-h2-backend.fly.dev"
+#argus_backend = "https://argus-h2-backend.fly.dev"
+argus_backend = "https://argus-h2-backend-test.fly.dev"
 
 async def send_to_backend(pluginpath, boon_data, weapon_data, familiar_data, extra_data, elemental_data, pin_data, vow_data, arcana_data):
     argus_token = argus_auth.get_argus_token(pluginpath, argus_backend)

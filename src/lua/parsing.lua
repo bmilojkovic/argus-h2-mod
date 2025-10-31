@@ -69,21 +69,6 @@ function buildVowData()
     return vowString
 end
 
-function buildArcanaData()
-    local arcanaString = ""
-    if game.GameState.MetaUpgradeState ~= nil then
-        for arcanaName, arcanaTable in pairs(game.GameState.MetaUpgradeState) do
-            if arcanaTable.Equipped and arcanaTable.Level ~= nil then
-                arcanaString = arcanaString .. arcanaTable.Level .. dataSeparator .. arcanaName .. " "
-            end
-        end
-    end
-
-    if arcanaString == "" then arcanaString = NOARCANA end
-
-    return arcanaString
-end
-
 local familiarTraitMap = {
     HealthFamiliar = { "HealthFamiliar", "FamiliarFrogResourceBonus" },
     CritFamiliar = { "CritFamiliar", "FamiliarRavenResourceBonus" },

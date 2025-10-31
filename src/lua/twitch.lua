@@ -49,6 +49,10 @@ function sendTwitchData()
             boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
             goto continue_loop
         end
+        if isArcanaTrait(currentTrait) then
+            arcanaString = arcanaString ..
+                arcanaLevelFromRarity(readRaritySafe(currentTrait)) .. dataSeparator .. currentTrait.Name .. " "
+        end
         ::continue_loop::
     end
 
@@ -63,7 +67,6 @@ function sendTwitchData()
     elementsString = buildElementalData()
     pinsString = buildPinData()
     vowString = buildVowData()
-    arcanaString = buildArcanaData()
 
     if config.argus_debug then
         if boonList ~= "" then
