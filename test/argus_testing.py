@@ -75,6 +75,15 @@ def get_test_data(which_test):
         pin_data = NOPINS
         vow_data = NOVOWS
         arcana_data = NOARCANA
+    elif which_test == "doubleboon":
+        boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon Duo;;PoseidonSplashSprintBoon"
+        weapon_data = "Rare;;DaggerBlockAspect"
+        familiar_data = "LastStandFamiliar 2;;LastStandFamiliar 3;;FamiliarCatResourceBonus"
+        extra_data = "Epic;;ForceZeusBoonKeepsake Common;;SpellSummonTrait"
+        elemental_data = "Fire:1;;Water:0;;Earth:3;;Air:0;;Aether:0"
+        pin_data = "RandomStatusBoon;;AresExCastBoon;;GoodStuffBoon"
+        vow_data = "4;;BossDifficultyShrineUpgrade 1;;MinibossCountShrineUpgrade 2;;NextBiomeEnemyShrineUpgrade 2;;BiomeSpeedShrineUpgrade"
+        arcana_data = "3;;ScreenReroll 3;;StatusVulnerability 2;;ChanneledCast 3;;HealthRegen 3;;LowManaDamageBonus 1;;CastCount 3;;SorceryRegenUpgrade"
     elif which_test == "pins":
         boon_data = "Common;;ApolloManaBoon Rare;;AphroditeSpecialBoon Epic;;PoseidonWeaponBoon Heroic;;PoseidonCastBoon Common;;DaggerBlinkAoETrait Duo;;PoseidonSplashSprintBoon Rare;;DoubleRewardBoon Legendary;;AmplifyConeBoon Infusion;;ElementalDodgeBoon"
         weapon_data = "Rare;;DaggerBlockAspect"
@@ -107,7 +116,7 @@ if __name__ == "__main__":
     
     arg_parser = argparse.ArgumentParser(description="Test the backend and frontend with prepared or generated data.")
     arg_parser.add_argument('--generate', action="store_true", help="Generate a random test based on parameters.")
-    arg_parser.add_argument('--prepared', choices=["nominal", "minimal", "pins"], help="Run one of the prepared tests.")
+    arg_parser.add_argument('--prepared', choices=["nominal", "minimal", "doubleboon", "pins"], help="Run one of the prepared tests.")
 
     args = vars(arg_parser.parse_args())
     main()

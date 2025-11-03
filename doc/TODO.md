@@ -2,14 +2,6 @@
 
 ## Will do
 
-- Frontend bugfixes:
-  - Aspect of Circe and Aspect of Momus have swapped icons \*
-  - Heroic Keepsakes don't have a frame image \*
-  - Hestia icon Snuffed Candle needs an update \*
-  - Change config page to just reference the main mod README instead of giving instructions \*
-- Arcana cards being rarified by Circe seem to not register
-- Change frontend code so that it doesn't keep historic messages forever.
-- Make default screen on stream be a message saying when things will show up
 - Add hammer ranks
 - Use hammer frame where needed
 - Have the backend check mod version and decide wheather it should forward the data to extension or not.

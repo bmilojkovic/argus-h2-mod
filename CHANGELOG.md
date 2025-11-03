@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Showing a hint to viewers when they first open the extension that it will update on exiting a room.
+
 ### Changed
 
-- Updated documentation to make the installation more smooth.
+- Improved frontend performance.
+- Small bugfixes:
+  - Circe arcana card upgrades weren't working, now they do.
+  - Aspect of Circe and Aspect of Momus had swapped icons.
+  - Heroic Keepsake rarity is now displayed correctly.
+  - Snuffed Candle icon was outdated, now it is correct.
 
 ## [1.0.0] - 2025-10-29
 
