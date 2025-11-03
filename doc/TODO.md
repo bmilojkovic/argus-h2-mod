@@ -2,6 +2,9 @@
 
 ## Will do
 
+- Add names of levels (Common / Rare / etc) to the UI
+  - Did boons, keepsakes and weapons
+  - Familiars still need to be done
 - Add hammer ranks
 - Use hammer frame where needed
 - Have the backend check mod version and decide wheather it should forward the data to extension or not.
@@ -10,8 +13,6 @@
 
 ## Might do (still considering if it is actually useful)
 
-- Add names of levels (Common / Rare / etc) to the UI? Same for pet levels and keepsakes?
-- Add names to arcana cards?
 - Add names of images to messages. Right now they are just ID.png
 
 ## Might do (if required)
