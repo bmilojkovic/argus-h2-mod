@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Showing a hint to viewers when they first open the extension that it will update on exiting a room.
-- Rarities are being shown explicitly on UI instead of only by color.
+- Support for legendary hammers.
+- If there is no data to show yet, there is a hint so viewers know when it will happen.
+- Rarities are being shown as text on UI. Used to be only color.
 
 ### Changed
 
-- Improved frontend performance.
 - Arcana cards are now laid out the same as they are in the Altar of Ashes.
 - Using the correct icon frame for hammers on UI.
 - Small bugfixes:
