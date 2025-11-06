@@ -38,14 +38,15 @@ function sendTwitchData()
             extraString = extraString .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
             goto continue_loop
         end
-        if isHammerTrait(currentTrait) or isArachneTrait(currentTrait) then
+        if isArachneTrait(currentTrait) then
             boonList = boonList .. "Common" .. dataSeparator .. currentTrait.Name .. " "
             goto continue_loop
         end
         if game.IsGodTrait(currentTrait.Name, { ForShop = true }) or
             isChaosBlessing(currentTrait) or isMainHadesBoon(currentTrait) or
             isMainIcarusTrait(currentTrait) or isMainMedeaTrait(currentTrait) or
-            isMainCirceTrait(currentTrait) or isMainAthenaTrait(currentTrait) then
+            isMainCirceTrait(currentTrait) or isMainAthenaTrait(currentTrait) or
+            isHammerTrait(currentTrait) then
             boonList = boonList .. readRaritySafe(currentTrait) .. dataSeparator .. currentTrait.Name .. " "
             goto continue_loop
         end

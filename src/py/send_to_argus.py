@@ -32,7 +32,7 @@ async def send_to_backend(pluginpath, boon_data, weapon_data, familiar_data, ext
     response = requests.post(
         argus_backend + "/run_info",
         json = {
-            "argusProtocolVersion": "1",
+            "argusProtocolVersion": "2",
             "argusToken": argus_token,
             "runData": {
                 "boonData": boon_data.strip(),

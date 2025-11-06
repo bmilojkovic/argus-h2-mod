@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Showing a hint to viewers when they first open the extension that it will update on exiting a room.
+- Rarities are being shown explicitly on UI instead of only by color.
 
 ### Changed
 

@@ -5,11 +5,8 @@
 - Add names of levels (Common / Rare / etc) to the UI
   - Did boons, keepsakes and weapons
   - Familiars still need to be done (need to test cat, hound, polecat)
-- Add hammer ranks
+- Add hammer ranks (added to mod, still need to test in-game)
 - Use hammer frame where needed
-- Have the backend check mod version and decide wheather it should forward the data to extension or not.
-  - We want to do this in case of a big game patch, and data is all wrong.
-  - The streamer might have the mod not be updated, but they WILL be using the newest extension always.
 
 ## Might do (still considering if it is actually useful)
 
