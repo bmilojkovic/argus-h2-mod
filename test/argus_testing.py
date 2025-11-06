@@ -23,7 +23,8 @@ NOPINS = "NOPINS"
 NOVOWS = "NOVOWS"
 NOARCANA = "NOARCANA"
 
-BUCKET_NAME = "argus-h2-backend-argus-tokens"
+# BUCKET_NAME = "argus-h2-backend-argus-tokens"
+BUCKET_NAME = "argus-h2-backend-argus-tokens-test"
 UI_MAPPINGS_KEY = "uiMappings"
 
 GENERATOR_CONFIG_FILE = test_dir + "generator_params.ini"

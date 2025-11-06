@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Improved frontend performance.
+- Arcana cards are now laid out the same as they are in the Altar of Ashes.
+- Using the correct icon frame for hammers on UI.
 - Small bugfixes:
   - Circe arcana card upgrades weren't working, now they do.
   - Aspect of Circe and Aspect of Momus had swapped icons.

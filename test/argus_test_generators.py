@@ -113,7 +113,7 @@ def arcana_data_generator(ui_mappings, generator_params):
     arcana_string = ""
 
     for arcana_name in ui_mappings["arcana"].keys():
-        if random.randint(1, 2) == 1: # include this card
+        if random.randint(1, 100) <= int(generator_params["include_card"]): # include this card
             max_level = 4
             arcana_level = random.randint(1, max_level)
             arcana_string = arcana_string + str(arcana_level) + DATA_SEPARATOR + arcana_name + " "

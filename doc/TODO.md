@@ -6,7 +6,7 @@
   - Did boons, keepsakes and weapons
   - Familiars still need to be done (need to test cat, hound, polecat)
 - Add hammer ranks (added to mod, still need to test in-game)
-- Use hammer frame where needed
+  - Need to go over ui mappings and test with Pony
 
 ## Might do (still considering if it is actually useful)
 
@@ -19,13 +19,8 @@
 
 ## Need to test
 
-- Boons
-  - Anvil Ring (Hephaestus): increased damage for Common Rarity
-  - Sword Ring (Ares): increased damage
-  - Carnal Pleasure (Ares x Aphrodite): increased effectiveness
-  - Chakra Collider (Coat - Shiva): increased damage
 - Improve the test generator:
-  - Add arcana and vows
+  - Add hexes
   - Make all generators have better strategies
 - Test Apollo legendary with torches - seems to be a different Trait
 - Test Dio keepsake - maybe it stays as a different keepsake in followup biomes.
