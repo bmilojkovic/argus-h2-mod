@@ -42,13 +42,13 @@ def generate_test_data():
     ui_mappings_string = response['Body'].read().decode('utf-8')
     ui_mappings = json.loads(ui_mappings_string)
 
-    extra_data = ""
     generator_params = configparser.ConfigParser()
     generator_params.read(GENERATOR_CONFIG_FILE)
 
     boon_data = argus_test_generators.boon_data_generator(ui_mappings, generator_params["boons"])
     weapon_data = argus_test_generators.weapon_data_generator(ui_mappings, generator_params["weapons"])
     familiar_data = argus_test_generators.familiar_data_generator(ui_mappings, generator_params["familiars"])
+    extra_data = argus_test_generators.keepsake_data_generator(ui_mappings, generator_params["keepsakes"])
     elemental_data = argus_test_generators.elemental_data_generator(ui_mappings, generator_params["elements"])
     pin_data = argus_test_generators.pin_data_generator(ui_mappings, generator_params["pins"])
     vow_data = argus_test_generators.vow_data_generator(ui_mappings, generator_params["vows"])

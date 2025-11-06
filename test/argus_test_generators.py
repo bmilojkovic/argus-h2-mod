@@ -10,7 +10,7 @@ def boon_data_generator(ui_mappings, generator_params):
     if not include:
         return ""
     
-    boon_rarities = ["Common", "Rare", "Epic", "Legendary"]
+    boon_rarities = ["Common", "Rare", "Epic", "Heroic"]
     boon_data = ""
 
     boon_count = random.randint(int(generator_params["min_boons"]), int(generator_params["max_boons"]))
@@ -45,6 +45,19 @@ def familiar_data_generator(ui_mappings, generator_params):
     second_trait_level = str(random.randint(1, 4))
 
     return familiar_level + DATA_SEPARATOR + familiar_name + " " + first_trait_level + DATA_SEPARATOR + first_trait + " " + second_trait_level + DATA_SEPARATOR + second_trait
+
+def keepsake_data_generator(ui_mappings, generator_params):
+    include = percentile_boolean(int(generator_params["include"]))
+    if not include:
+        return ""
+
+    keepsake_rarities = ["Common", "Rare", "Epic", "Heroic"]
+    keepsake_rarity = random.choice(keepsake_rarities)
+    keepsake_name = random.choice(list(ui_mappings["keepsakes"].keys()))
+
+    keepsake_string = keepsake_rarity + DATA_SEPARATOR + keepsake_name
+
+    return keepsake_string
 
 def elemental_data_generator(ui_mappings, generator_params):
     include = percentile_boolean(int(generator_params["include"]))
