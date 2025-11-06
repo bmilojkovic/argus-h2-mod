@@ -69,6 +69,36 @@ function buildVowData()
     return vowString
 end
 
+local familiarLevelTraitMap = {
+    HealthFamiliar = { "HealthFamiliar", "FamiliarFrogResourceBonus", "FamiliarFrogDamage" },
+    CritFamiliar = { "CritFamiliar", "FamiliarRavenResourceBonus", "FamiliarRavenAttackDuration" },
+    LastStandFamiliar = { "LastStandFamiliar", "FamiliarCatResourceBonus", "FamiliarCatAttacks" },
+    DigFamiliar = { "DigFamiliar", "FamiliarHoundResourceBonus", "FamiliarHoundBarkDuration" },
+    DodgeFamiliar = { "DodgeFamiliar", "FamiliarPolecatResourceBonus", "FamiliarPolecatDamage" },
+}
+
+local function countFamiliarLevel(familiarTraitName)
+    if familiarTraitName == nil then
+        return 1
+    end
+
+    local possibleFamiliarTraits = familiarLevelTraitMap[familiarTraitName]
+
+    if possibleFamiliarTraits == nil then
+        return 1
+    end
+
+    local count = 1
+
+    for k, heroTrait in pairs(game.CurrentRun.Hero.Traits) do
+        if heroTrait.Name ~= nil and heroTrait.StackNum ~= nil and listContains(possibleFamiliarTraits, heroTrait.Name) then
+            count = count + heroTrait.StackNum - 1
+        end
+    end
+
+    return count
+end
+
 local familiarTraitMap = {
     HealthFamiliar = { "HealthFamiliar", "FamiliarFrogResourceBonus" },
     CritFamiliar = { "CritFamiliar", "FamiliarRavenResourceBonus" },
@@ -82,7 +112,9 @@ function buildFamiliarData(familiarTrait)
         return NOFAMILIARS
     end
 
-    local familiarString = familiarTrait.Name
+    local familiarLevel = countFamiliarLevel(familiarTrait.Name)
+
+    local familiarString = familiarLevel .. dataSeparator .. familiarTrait.Name
 
     local familiarTraits = familiarTraitMap[familiarTrait.Name];
     local traitCounter = 1

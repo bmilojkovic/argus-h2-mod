@@ -35,6 +35,7 @@ def familiar_data_generator(ui_mappings, generator_params):
     if not include:
         return ""
 
+    familiar_level = str(random.randint(1, 10))
     familiar_name = random.choice(list(ui_mappings["familiars"].keys()))
 
     first_trait = ui_mappings["familiars"][familiar_name]["effects"][0]["codeName"]
@@ -43,7 +44,7 @@ def familiar_data_generator(ui_mappings, generator_params):
     second_trait = ui_mappings["familiars"][familiar_name]["effects"][1]["codeName"]
     second_trait_level = str(random.randint(1, 4))
 
-    return familiar_name + " " + first_trait_level + DATA_SEPARATOR + first_trait + " " + second_trait_level + DATA_SEPARATOR + second_trait
+    return familiar_level + DATA_SEPARATOR + familiar_name + " " + first_trait_level + DATA_SEPARATOR + first_trait + " " + second_trait_level + DATA_SEPARATOR + second_trait
 
 def elemental_data_generator(ui_mappings, generator_params):
     include = percentile_boolean(int(generator_params["include"]))

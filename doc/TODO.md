@@ -4,7 +4,7 @@
 
 - Add names of levels (Common / Rare / etc) to the UI
   - Did boons, keepsakes and weapons
-  - Familiars still need to be done
+  - Familiars still need to be done (need to test cat, hound, polecat)
 - Add hammer ranks
 - Use hammer frame where needed
 - Have the backend check mod version and decide wheather it should forward the data to extension or not.
