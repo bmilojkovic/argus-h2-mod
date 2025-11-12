@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for legendary hammers.
-- If there is no data to show yet, there is a hint so viewers know when it will happen.
 - Rarities are being shown as text on UI. Used to be only color.
 
 ### Changed
