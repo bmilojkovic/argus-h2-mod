@@ -16,4 +16,5 @@ function printHeroTraits()
         rom.log.warning(printString)
     end]] --
     rom.log.warning(stringifyTable(game.CurrentRun.Hero.Traits))
+    game.thread(sendTwitchData)
 end

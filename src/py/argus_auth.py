@@ -39,7 +39,13 @@ def do_argus_auth(config, config_file_path, argus_backend):
 
         argus_log("asked for argus token and got: " + response.text)
         if response.status_code == 200 and response.text != "FAIL":
-            config["DEFAULT"] = {"argus_token" : response.text}
+            response_data = response.text.split("\n")
+            if len(response_data) != 2:
+                argus_log("Got strange response data: " + response.text)
+                return "FAIL", None
+            new_argus_token = response_data[0]
+            new_profile_pic = response_data[1]
+            config["DEFAULT"] = {"argus_token" : new_argus_token, "profile_pic": new_profile_pic}
             with open(config_file_path, "w") as config_file:
                 config.write(config_file)
             return response.text
