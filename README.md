@@ -1,4 +1,6 @@
-# Argus 👀
+# Argus 👀 (Hades II mod)
+
+> NOTE: This mod has been reported to cause rare crashes. We suggest using the [standalone app](https://github.com/bmilojkovic/argus-h2-app) for better stability and performance until the issue gets resolved.
 
 Argus is a `Hades II` mod that supports the Argus Twitch extension. It will show your viewers various details about your run. May chat never ask you about your fear setup ever again. 🎉
 
